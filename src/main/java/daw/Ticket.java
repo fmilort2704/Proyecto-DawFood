@@ -14,13 +14,17 @@ import java.util.ArrayList;
 public class Ticket {
     private int ID;
     private int numPedido;
-    private ArrayList<Productos> listaProductos;
+    private ArrayList<Producto> listaProductos;
     private int importeTotal;
     private LocalDateTime fechaHoraOperacion;
+    private static int contadorId = 0;
+    private static int contadorNumPedido = 0;
 
-    public Ticket(int ID, int numPedido, ArrayList<Productos> listaProductos, int importeTotal, LocalDateTime fechaHoraOperacion) {
-        this.ID = ID;
-        this.numPedido = numPedido;
+    public Ticket(ArrayList<Producto> listaProductos, int importeTotal, LocalDateTime fechaHoraOperacion) {
+        this.ID = contadorId;
+        contadorId++;
+        this.numPedido = contadorNumPedido;
+        contadorNumPedido++;
         this.listaProductos = listaProductos;
         this.importeTotal = importeTotal;
         this.fechaHoraOperacion = fechaHoraOperacion;
@@ -33,23 +37,15 @@ public class Ticket {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public int getNumPedido() {
         return numPedido;
     }
 
-    public void setNumPedido(int numPedido) {
-        this.numPedido = numPedido;
-    }
-
-    public ArrayList<Productos> getListaProductos() {
+    public ArrayList<Producto> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(ArrayList<Productos> listaProductos) {
+    public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
 

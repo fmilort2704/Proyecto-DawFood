@@ -8,19 +8,19 @@ package daw;
  *
  * @author francisco
  */
-public enum Categorias {
+public enum Categoria {
     COMIDA("Comida"),
-    POSTRES("Postre"),
-    BEBIDAS("Bebida");
+    POSTRE("Postre"),
+    BEBIDA("Bebida");
     
-    private final String CATEGORIAS;
+    private final String CATEGORIA;
     
-    Categorias(String CATEGORIAS){
-    this.CATEGORIAS = CATEGORIAS;
+    Categoria(String CATEGORIA){
+    this.CATEGORIA = CATEGORIA;
 }
 
-    public String getCATEGORIAS() {
-        return CATEGORIAS;
+    public String getCATEGORIA() {
+        return CATEGORIA;
     }
     
     

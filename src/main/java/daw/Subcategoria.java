@@ -8,7 +8,8 @@ package daw;
  *
  * @author francisco
  */
-public enum Subcategorias {
+public enum Subcategoria {
+    
     POKE("Poke"),
     WRAP("Wrap"),
     LOCA_MOCO("Loco Moco"),
@@ -17,18 +18,16 @@ public enum Subcategorias {
     TARTA("Tarta"),
     AGUA("Agua"),
     CERVEZA("Cerveza"),
-    VINO("Vino"),
-    ZUMO("Zumo");
-    
-    private final String SUBCATEGORIAS;
-    
-    Subcategorias(String SUBCATEGORIAS){
-    this.SUBCATEGORIAS = SUBCATEGORIAS;
-}
+    REFRESCO("Refresco");
 
-    public String getSUBCATEGORIAS() {
-        return SUBCATEGORIAS;
+    private final String SUBCATEGORIA;
+
+    private Subcategoria(String SUBCATEGORIA) {
+        this.SUBCATEGORIA = SUBCATEGORIA;
     }
-    
-    
+
+    public String getSUBCATEGORIA() {
+        return SUBCATEGORIA;
+    }
+
 }

@@ -8,34 +8,36 @@ package daw;
  *
  * @author francisco
  */
-public class Productos {
+public class Producto {
+    
     private int ID;
     private String descripcion;
-    private Categorias CATEGORIAS;
-    private Subcategorias SUBCATEGORIAS;
+    private Categoria categoria;
+    private Subcategoria subcategoria;
     private int precio;
-    private int IVA;
+    private IVA IVA;
     private int stock;
+    private static int contadorId = 0;
 
-    public Productos(int ID, String descripcion, Categorias CATEGORIAS, Subcategorias SUBCATEGORIAS, int precio, int IVA, int stock) {
-        this.ID = ID;
+    public Producto(String descripcion, Categoria categoria, Subcategoria subcategoria, int precio, IVA IVA, int stock) {
+        
+        this.ID = contadorId;
+        contadorId++;
         this.descripcion = descripcion;
-        this.CATEGORIAS = CATEGORIAS;
-        this.SUBCATEGORIAS = SUBCATEGORIAS;
+        this.categoria = categoria;
+        this.subcategoria = subcategoria;
         this.precio = precio;
         this.IVA = IVA;
         this.stock = stock;
     }
 
-    public Productos() {
+    public Producto() {
+        this.ID = contadorId;
+        contadorId++;
     }
 
     public int getID() {
         return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public String getDescripcion() {
@@ -46,20 +48,20 @@ public class Productos {
         this.descripcion = descripcion;
     }
 
-    public Categorias getCATEGORIAS() {
-        return CATEGORIAS;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCATEGORIAS(Categorias CATEGORIAS) {
-        this.CATEGORIAS = CATEGORIAS;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public Subcategorias getSUBCATEGORIAS() {
-        return SUBCATEGORIAS;
+    public Subcategoria getSubcategoria() {
+        return subcategoria;
     }
 
-    public void setSUBCATEGORIAS(Subcategorias SUBCATEGORIAS) {
-        this.SUBCATEGORIAS = SUBCATEGORIAS;
+    public void setSubcategoria(Subcategoria subcategoria) {
+        this.subcategoria = subcategoria;
     }
 
     public int getPrecio() {
@@ -70,11 +72,11 @@ public class Productos {
         this.precio = precio;
     }
 
-    public int getIVA() {
+    public IVA getIVA() {
         return IVA;
     }
 
-    public void setIVA(int IVA) {
+    public void setIVA(IVA IVA) {
         this.IVA = IVA;
     }
 
