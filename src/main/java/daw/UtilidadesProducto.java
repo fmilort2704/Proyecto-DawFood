@@ -8,6 +8,6 @@ package daw;
  *
  * @author francisco
  */
-public class UtilidadesMetodos {
+public class UtilidadesProducto {
     
 }

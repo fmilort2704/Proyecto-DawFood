@@ -31,6 +31,10 @@ public class Ticket {
     }
 
     public Ticket() {
+        this.ID = contadorId;
+        contadorId++;
+        this.numPedido = contadorNumPedido;
+        contadorNumPedido++;
     }
 
     public int getID() {
