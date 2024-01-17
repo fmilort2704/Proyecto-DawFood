@@ -6,12 +6,12 @@ package interfaces;
 
 /**
  *
- * @author FX506
+ * @author noelia
  */
 public class InterfazCategoria extends javax.swing.JFrame {
 
     /**
-     * Creates new form interfazCategoria
+     * Creates new form InterfazDawFood
      */
     public InterfazCategoria() {
         initComponents();
@@ -26,18 +26,13 @@ public class InterfazCategoria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        fondoPrincipal = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/pokezen2.jpg"))); // NOI18N
+        getContentPane().add(fondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 850));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -69,6 +64,12 @@ public class InterfazCategoria extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -79,5 +80,6 @@ public class InterfazCategoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel fondoPrincipal;
     // End of variables declaration//GEN-END:variables
 }

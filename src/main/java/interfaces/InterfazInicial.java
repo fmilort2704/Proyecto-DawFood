@@ -30,38 +30,32 @@ public class InterfazInicial extends javax.swing.JFrame {
         fondoPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        comenzar.setText("Tocar para comenzar pedido");
+        comenzar.setBackground(new java.awt.Color(182, 217, 196));
+        comenzar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        comenzar.setForeground(new java.awt.Color(0, 67, 71));
+        comenzar.setText("Tocar aquí para comenzar pedido");
+        comenzar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        comenzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comenzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comenzarActionPerformed(evt);
             }
         });
+        getContentPane().add(comenzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 690, 590, 100));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(comenzar)
-                .addGap(158, 158, 158)
-                .addComponent(fondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(535, Short.MAX_VALUE)
-                .addComponent(comenzar)
-                .addGap(85, 85, 85))
-        );
+        fondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/pokezen.jpg"))); // NOI18N
+        getContentPane().add(fondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 850));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void comenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comenzarActionPerformed
         // TODO add your handling code here:
+        InterfazCategoria interCat = new InterfazCategoria();
+        interCat.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_comenzarActionPerformed
 
     /**
