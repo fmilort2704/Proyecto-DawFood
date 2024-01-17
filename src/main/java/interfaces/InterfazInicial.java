@@ -35,7 +35,7 @@ public class InterfazInicial extends javax.swing.JFrame {
         comenzar.setBackground(new java.awt.Color(182, 217, 196));
         comenzar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         comenzar.setForeground(new java.awt.Color(0, 67, 71));
-        comenzar.setText("Tocar aquí para comenzar pedido");
+        comenzar.setText("Tocar aquí para comenzar");
         comenzar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         comenzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comenzar.addActionListener(new java.awt.event.ActionListener() {

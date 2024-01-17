@@ -4,10 +4,20 @@
  */
 package daw;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author francisco
  */
 public class UtilidadesProducto {
+    
+    public ArrayList<Producto> carritoCompra(){
+        ArrayList<Producto> carrito = new ArrayList<>();
+        
+        
+        
+        return carrito;
+    }
     
 }
