@@ -56,13 +56,13 @@ public class InterfazTipoUsuario extends javax.swing.JFrame {
                 btnUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 160, 50));
+        getContentPane().add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 230, 50));
 
         btnAdmin.setBackground(new java.awt.Color(182, 217, 196));
         btnAdmin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAdmin.setForeground(new java.awt.Color(0, 67, 71));
         btnAdmin.setText("Administrador");
-        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 160, 50));
+        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 230, 50));
 
         fondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/pokezen2.jpg"))); // NOI18N
         getContentPane().add(fondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 850));
