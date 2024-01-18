@@ -4,6 +4,7 @@
  */
 package daw;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +22,9 @@ public class MainPruebas {
                     .substring(baseDatosTarjeta.get(i).getNumTarjeta().length() - 4,
                             baseDatosTarjeta.get(i).getNumTarjeta().length()));
         }
+        
+        //Comprobando cual es el máximo día del mes
+        System.out.println(LocalDate.MAX.getDayOfMonth());
 
     }
 

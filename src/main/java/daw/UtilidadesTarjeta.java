@@ -5,6 +5,9 @@
 package daw;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 
 /**
@@ -48,7 +51,25 @@ public class UtilidadesTarjeta {
         return false;
     }
     
-    
+    public LocalDate fechaCaducidad(int dia, int mes, int anyo){
+        final int NUM_MIN = 1;
+        final int MES_MAX = 12;
+        LocalDate fecha = LocalDate.MAX;
+        if(Year.isLeap(anyo)){
+            if((dia >= NUM_MIN && dia <= Month.of(mes).maxLength())
+                    && (mes >= NUM_MIN && mes <= MES_MAX)
+                    && (anyo >= NUM_MIN && anyo <= Year.MAX_VALUE)){
+                fecha = LocalDate.of(anyo, mes, dia);
+            }
+        }else{
+            if((dia >= NUM_MIN && dia <= Month.of(mes).minLength())
+                    && (mes >= NUM_MIN && mes <= MES_MAX)
+                    && (anyo >= NUM_MIN && anyo <= Year.MAX_VALUE)){
+                fecha = LocalDate.of(anyo, mes, dia);
+            }
+        }
+        return fecha;
+    }
 
     public boolean fechaCaducidadValida(String digitosCliente, LocalDate fechaCaducidad) {
         ArrayList<Tarjeta> baseDatosTarjeta = baseDatosTarjeta();
