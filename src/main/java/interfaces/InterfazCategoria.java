@@ -15,6 +15,7 @@ public class InterfazCategoria extends javax.swing.JFrame {
      */
     public InterfazCategoria() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

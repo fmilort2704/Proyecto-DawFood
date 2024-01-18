@@ -15,6 +15,7 @@ public class InterfazInicial extends javax.swing.JFrame {
      */
     public InterfazInicial() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

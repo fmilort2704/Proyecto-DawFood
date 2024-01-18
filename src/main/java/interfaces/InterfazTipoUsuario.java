@@ -15,6 +15,7 @@ public class InterfazTipoUsuario extends javax.swing.JFrame {
      */
     public InterfazTipoUsuario() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

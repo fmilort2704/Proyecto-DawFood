@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class UtilidadesTarjeta {
 
-    public ArrayList<Tarjeta> baseDatosTarjeta() {
+    public static ArrayList<Tarjeta> baseDatosTarjeta() {
         ArrayList<Tarjeta> listaTarjetas = new ArrayList<>();
 
         listaTarjetas.add(new Tarjeta("1234567891234567",
@@ -33,12 +33,9 @@ public class UtilidadesTarjeta {
         return listaTarjetas;
     }
 
-    public boolean numTarjetaValido(String digitosCliente) {
+    public static boolean numTarjetaValido(String digitosCliente) {
         ArrayList<Tarjeta> baseDatosTarjeta = baseDatosTarjeta();
-        
-        if(digitosCliente){
-            
-        }
+
         for (int i = 0; i < baseDatosTarjeta.size(); i++) {
 
             if (digitosCliente.equals(baseDatosTarjeta.get(i)
@@ -48,10 +45,35 @@ public class UtilidadesTarjeta {
                 return true;
             }
         }
-
         return false;
     }
     
     
+
+    public boolean fechaCaducidadValida(String digitosCliente, LocalDate fechaCaducidad) {
+        ArrayList<Tarjeta> baseDatosTarjeta = baseDatosTarjeta();
+
+        for (int i = 0; i < baseDatosTarjeta.size(); i++) {
+
+            //En este monstruoso if, comprobamos que la fecha introducida
+            //no esté pasada (caducada)
+            //Después buscamos cuál es nuestra tarjeta en la base de datos 
+            //para que se pueda comprobar finalmente que la fecha introducida 
+            //es la misma que está guardada
+            if (fechaCaducidad.isAfter(LocalDate.now())
+                    && digitosCliente.equals(baseDatosTarjeta.get(i)
+                            .getNumTarjeta()
+                            .substring(baseDatosTarjeta.get(i)
+                                    .getNumTarjeta().length() - 4,
+                                    baseDatosTarjeta.get(i)
+                                            .getNumTarjeta().length()))
+                    && fechaCaducidad.equals(
+                            baseDatosTarjeta.get(i).getFechaVencimiento())) {
+
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
