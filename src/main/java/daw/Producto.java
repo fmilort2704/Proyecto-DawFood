@@ -14,12 +14,12 @@ public class Producto {
     private String descripcion;
     private Categoria categoria;
     private Subcategoria subcategoria;
-    private int precio;
+    private double precio;
     private IVA IVA;
     private int stock;
     private static int contadorId = 0;
 
-    public Producto(String descripcion, Categoria categoria, Subcategoria subcategoria, int precio, IVA IVA, int stock) {
+    public Producto(String descripcion, Categoria categoria, Subcategoria subcategoria, double precio, IVA IVA, int stock) {
         
         this.ID = contadorId;
         contadorId++;
@@ -64,7 +64,7 @@ public class Producto {
         this.subcategoria = subcategoria;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
