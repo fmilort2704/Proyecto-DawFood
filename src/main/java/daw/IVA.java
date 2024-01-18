@@ -12,14 +12,14 @@ public enum IVA {
     IVA_VETIUNO(1.21),
     IVA_DIEZ(1.1);
     
-    private final double IVA;
+    private final double PORCENTAJE_IVA;
     
     IVA(double IVA){
-        this.IVA = IVA;
+        this.PORCENTAJE_IVA = IVA;
     }
 
-    public double getIVA() {
-        return IVA;
+    public double getPORCENTAJE_IVA() {
+        return PORCENTAJE_IVA;
     }
     
     
