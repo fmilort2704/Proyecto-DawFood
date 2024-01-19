@@ -15,17 +15,25 @@ public class MainPruebas {
 
     public static void main(String[] args) {
 
-        //Probando condición de digitos válidos para la tarjeta
         ArrayList<Tarjeta> baseDatosTarjeta = UtilidadesTarjeta.baseDatosTarjeta();
-        for (int i = 0; i < baseDatosTarjeta.size(); i++) {
-            System.out.println(baseDatosTarjeta.get(i).getNumTarjeta()
-                    .substring(baseDatosTarjeta.get(i).getNumTarjeta().length() - 4,
-                            baseDatosTarjeta.get(i).getNumTarjeta().length()));
-        }
         
         //Comprobando cual es el máximo día del mes
         System.out.println(LocalDate.MAX.getDayOfMonth());
-
+        
+        //Buscando la tarjeta del cliente
+        System.out.println("----------------------------------------------------------------------");
+        String digitosCliente = "4567";
+        Tarjeta tarjetaCliente = new Tarjeta();
+        
+        for (int i = 0; i < baseDatosTarjeta.size(); i++) {
+            if (digitosCliente.equals(baseDatosTarjeta.get(i)
+                    .getNumTarjeta()
+                    .substring(baseDatosTarjeta.get(i).getNumTarjeta().length() - 4,
+                            baseDatosTarjeta.get(i).getNumTarjeta().length()))) {
+                tarjetaCliente = baseDatosTarjeta.get(i);
+            }
+        }
+        System.out.println(tarjetaCliente);
         
     }
 

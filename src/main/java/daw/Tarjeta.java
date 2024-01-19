@@ -95,6 +95,19 @@ public class Tarjeta {
         }
         return Objects.equals(this.fechaVencimiento, other.fechaVencimiento);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tarjeta{");
+        sb.append("numTarjeta=").append(numTarjeta);
+        sb.append(", fechaVencimiento=").append(fechaVencimiento);
+        sb.append(", CVV=").append(CVV);
+        sb.append(", nombreTitular=").append(nombreTitular);
+        sb.append(", saldo=").append(saldo);
+        sb.append('}');
+        return sb.toString();
+    }
     
     
     

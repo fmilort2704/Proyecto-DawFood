@@ -52,39 +52,38 @@ public class UtilidadesTarjeta {
         LocalDate fecha = LocalDate.MIN;
         if (((mes >= LocalDate.MIN.getMonthValue() && mes <= LocalDate.MAX.getMonthValue())
                 && (año >= LocalDate.now().getYear() && año <= LocalDate.MAX.getYear()))) {
-            fecha = LocalDate.of(año, mes,LocalDate.MIN.getDayOfMonth());
+            fecha = LocalDate.of(año, mes, LocalDate.MIN.getDayOfMonth());
         }
         return fecha;
     }
 
     public boolean fechaCaducidadYCVVValidos(String digitosCliente, LocalDate fechaCaducidad, String CVV) {
         ArrayList<Tarjeta> baseDatosTarjeta = baseDatosTarjeta();
-        
-        for (int i = 0; i < baseDatosTarjeta.size(); i++) {
-            
-        }
+        Tarjeta tarjetaCliente = new Tarjeta();
 
+        //Primero obtengo la tarjeta del cliente para poder mirar sus atributos
         for (int i = 0; i < baseDatosTarjeta.size(); i++) {
-            //En este monstruoso if, comprobamos que la fecha introducida
-            //no esté pasada (caducada)
-            //Después buscamos cuál es nuestra tarjeta en la base de datos 
-            //para que se pueda comprobar finalmente que la fecha introducida 
-            //es la misma que está guardada
-            if (fechaCaducidad.isAfter(LocalDate.now())
-                    && digitosCliente.equals(baseDatosTarjeta.get(i).getNumTarjeta()
-                            .substring(baseDatosTarjeta.get(i).getNumTarjeta().length() - 4,
-                                    baseDatosTarjeta.get(i).getNumTarjeta().length()))
-                    && fechaCaducidad.equals(baseDatosTarjeta.get(i).getFechaVencimiento())) {
-                //En este otro if al que sólo se llega si la fecha está bien
-                //compruebo que el cvv sea el correcto
-                if(CVV.equals(baseDatosTarjeta.get(i).getCVV())){
-                    return true;
-                } 
+            if (digitosCliente.equals(baseDatosTarjeta.get(i)
+                    .getNumTarjeta()
+                    .substring(baseDatosTarjeta.get(i).getNumTarjeta().length() - 4,
+                            baseDatosTarjeta.get(i).getNumTarjeta().length()))) {
+                tarjetaCliente = baseDatosTarjeta.get(i);
+            }
+        }
+        
+        //comprobamos que la fecha introducida
+        //no esté pasada (caducada)
+        //y que la fecha introducida es la misma que está guardada
+        //en la info de la tarjeta de nustra base de datos
+        if (fechaCaducidad.isAfter(LocalDate.now())
+                && fechaCaducidad.equals(tarjetaCliente.getFechaVencimiento())) {
+            //En este otro if al que sólo se llega si la fecha está bien
+            //compruebo que el cvv sea el correcto
+            if (CVV.equals(tarjetaCliente.getCVV())) {
+                return true;
             }
         }
         return false;
     }
-    
-    
 
 }
