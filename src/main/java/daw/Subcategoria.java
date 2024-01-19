@@ -9,7 +9,7 @@ package daw;
  * @author francisco
  */
 public enum Subcategoria {
-    
+    //Declaracion de los diferentes tipos de subcategorias
     POKE("Poke"),
     WRAP("Wrap"),
     LOCA_MOCO("Loco Moco"),

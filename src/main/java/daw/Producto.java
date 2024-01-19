@@ -9,7 +9,7 @@ package daw;
  * @author francisco
  */
 public class Producto {
-    
+
     private int ID;
     private String descripcion;
     private Categoria categoria;
@@ -20,7 +20,7 @@ public class Producto {
     private static int contadorId = 0;
 
     public Producto(String descripcion, Categoria categoria, Subcategoria subcategoria, double precio, IVA IVA, int stock) {
-        
+
         this.ID = contadorId;
         contadorId++;
         this.descripcion = descripcion;
@@ -68,7 +68,7 @@ public class Producto {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -87,6 +87,21 @@ public class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Producto{");
+        sb.append("ID=").append(ID);
+        sb.append(", categoria=").append(categoria);
+        sb.append(", subcategoria=").append(subcategoria);
+        sb.append(", descripcion=").append(descripcion);
+        sb.append(", precio=").append(precio);
+        sb.append(", IVA=").append(IVA);
+        sb.append(", stock=").append(stock);
+        sb.append('}');
+        return sb.toString();
+    }
+
     
 }

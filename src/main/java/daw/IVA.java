@@ -9,6 +9,7 @@ package daw;
  * @author francisco
  */
 public enum IVA {
+    //Posibles valores para el iva
     IVA_VETIUNO(1.21),
     IVA_DIEZ(1.1);
     

@@ -62,5 +62,44 @@ public class UtilidadesAdmin {
         return this.carta.indexOf(p);
     }
     
-
+    public void cambiarDescripcion(Producto producto, String descripcion){
+        producto.setDescripcion(descripcion);
+    }
+    
+    public void cambiarCategoria(Producto producto, Categoria categoria){
+        producto.setCategoria(categoria);
+    }
+    
+    public void cambiarSubcategoria(Producto producto, Subcategoria subcategoria){
+        producto.setSubcategoria(subcategoria);
+    }
+    
+    public void cambiar(Producto producto, String descripcion){
+        producto.setDescripcion(descripcion);
+    }
+    
+    public void cambiarPrecio(Producto producto, double precio){
+        producto.setPrecio(precio);
+    }
+    
+    public void cambiarIVA(Producto producto, IVA iva){
+        producto.setIVA(iva);
+    }
+    
+    public void cambiarStock(Producto producto, int stock){
+        producto.setStock(stock);
+    }
+    
+    //Hay que controlar que no se pueda meter una categoria en la lista equivocada
+    public void añadirComida(Producto comida, ArrayList<Producto> listaComida){
+        listaComida.add(comida);
+    }
+    
+    public void añadirBebida(Producto bebida, ArrayList<Producto> listaBebida){
+        listaBebida.add(bebida);
+    }
+    
+    public void añadirPostre(Producto postre, ArrayList<Producto> listaPostre){
+        listaPostre.add(postre);
+    }
 }

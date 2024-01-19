@@ -26,6 +26,7 @@ public class MainPruebas {
         //Comprobando cual es el máximo día del mes
         System.out.println(LocalDate.MAX.getDayOfMonth());
 
+        
     }
 
 }

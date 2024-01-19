@@ -9,6 +9,7 @@ package daw;
  * @author francisco
  */
 public enum Categoria {
+    //Declaración de las diferentes categoria de comida
     COMIDA("Comida"),
     POSTRE("Postre"),
     BEBIDA("Bebida");

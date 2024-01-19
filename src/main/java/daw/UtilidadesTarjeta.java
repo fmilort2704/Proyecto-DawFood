@@ -51,21 +51,21 @@ public class UtilidadesTarjeta {
         return false;
     }
     
-    public LocalDate fechaCaducidad(int dia, int mes, int anyo){
+    public LocalDate fechaCaducidad(int dia, int mes, int año){
         final int NUM_MIN = 1;
         final int MES_MAX = 12;
         LocalDate fecha = LocalDate.MAX;
-        if(Year.isLeap(anyo)){
+        if(Year.isLeap(año)){
             if((dia >= NUM_MIN && dia <= Month.of(mes).maxLength())
                     && (mes >= NUM_MIN && mes <= MES_MAX)
-                    && (anyo >= NUM_MIN && anyo <= Year.MAX_VALUE)){
-                fecha = LocalDate.of(anyo, mes, dia);
+                    && (año >= NUM_MIN && año <= Year.MAX_VALUE)){
+                fecha = LocalDate.of(año, mes, dia);
             }
         }else{
             if((dia >= NUM_MIN && dia <= Month.of(mes).minLength())
                     && (mes >= NUM_MIN && mes <= MES_MAX)
-                    && (anyo >= NUM_MIN && anyo <= Year.MAX_VALUE)){
-                fecha = LocalDate.of(anyo, mes, dia);
+                    && (año >= NUM_MIN && año <= Year.MAX_VALUE)){
+                fecha = LocalDate.of(año, mes, dia);
             }
         }
         return fecha;
