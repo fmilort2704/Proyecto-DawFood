@@ -12,7 +12,8 @@ public class App {
 
     public static void main(String[] args) {
         
-        UtilidadesTPV.encenderTPV();
+        TPV tpv1 = new TPV("Estepona");
+        tpv1.encenderTPV();
         
     }
     

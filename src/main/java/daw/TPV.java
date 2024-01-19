@@ -4,6 +4,7 @@
  */
 package daw;
 
+import interfaces.InterfazTipoUsuario;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -58,6 +59,9 @@ public class TPV {
         return sb.toString();
     }
     
-    
+    public void encenderTPV(){
+        InterfazTipoUsuario interfaz = new InterfazTipoUsuario();
+        interfaz.setVisible(true);
+    }
     
 }
