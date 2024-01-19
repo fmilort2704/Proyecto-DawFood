@@ -5,9 +5,6 @@
 package daw;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.Year;
 import java.util.ArrayList;
 
 /**
@@ -50,23 +47,12 @@ public class UtilidadesTarjeta {
         }
         return false;
     }
-    
-    public LocalDate fechaCaducidad(int dia, int mes, int año){
-        final int NUM_MIN = 1;
-        final int MES_MAX = 12;
+
+    public LocalDate fechaCaducidad(int mes, int año) {
         LocalDate fecha = LocalDate.MAX;
-        if(Year.isLeap(año)){
-            if((dia >= NUM_MIN && dia <= Month.of(mes).maxLength())
-                    && (mes >= NUM_MIN && mes <= MES_MAX)
-                    && (año >= NUM_MIN && año <= Year.MAX_VALUE)){
-                fecha = LocalDate.of(año, mes, dia);
-            }
-        }else{
-            if((dia >= NUM_MIN && dia <= Month.of(mes).minLength())
-                    && (mes >= NUM_MIN && mes <= MES_MAX)
-                    && (año >= NUM_MIN && año <= Year.MAX_VALUE)){
-                fecha = LocalDate.of(año, mes, dia);
-            }
+        if (((mes >= LocalDate.MIN.getMonthValue() && mes <= LocalDate.MAX.getMonthValue())
+                && (año >= LocalDate.now().getYear() && año <= LocalDate.MAX.getYear()))) {
+            fecha = LocalDate.of(año, mes,LocalDate.MIN.getDayOfMonth());
         }
         return fecha;
     }
