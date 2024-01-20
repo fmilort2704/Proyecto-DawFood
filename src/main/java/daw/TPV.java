@@ -17,11 +17,13 @@ public class TPV {
     private final UUID ID;
     private LocalDateTime fechaHoraSistema;
     private String direccion;
+    private String password;
 
     public TPV(String direccion) {
         this.ID = UUID.randomUUID();
         this.fechaHoraSistema = LocalDateTime.now();
         this.direccion = direccion;
+        this.password = crearPassword();
     }
 
     public TPV() {
@@ -63,5 +65,8 @@ public class TPV {
         InterfazTipoUsuario interfaz = new InterfazTipoUsuario();
         interfaz.setVisible(true);
     }
-    
+
+    private String crearPassword(){
+        //Pendiente de hacer
+    }
 }
