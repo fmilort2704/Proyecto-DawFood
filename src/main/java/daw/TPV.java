@@ -17,7 +17,7 @@ public class TPV {
     private final UUID ID;
     private LocalDateTime fechaHoraSistema;
     private String direccion;
-    private String password;
+    private ArrayListString password;
 
     public TPV(String direccion) {
         this.ID = UUID.randomUUID();
@@ -66,7 +66,7 @@ public class TPV {
         interfaz.setVisible(true);
     }
 
-    private String crearPassword(){
+    private ArrayListString crearPassword(){
         //Pendiente de hacer
     }
 }
