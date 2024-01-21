@@ -6,7 +6,9 @@ package daw;
 
 import interfaces.InterfazTipoUsuario;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
@@ -17,7 +19,7 @@ public class TPV {
     private final UUID ID;
     private LocalDateTime fechaHoraSistema;
     private String direccion;
-    private ArrayListString password;
+    private String password;
 
     public TPV(String direccion) {
         this.ID = UUID.randomUUID();
@@ -66,7 +68,10 @@ public class TPV {
         interfaz.setVisible(true);
     }
 
-    private ArrayListString crearPassword(){
-        //Pendiente de hacer
+    private String crearPassword(){
+        return RandomStringUtils.randomAlphabetic(3)
+                + RandomStringUtils.randomAlphabetic(1).toUpperCase()
+                + RandomStringUtils.randomNumeric(1)
+                + RandomStringUtils.random(1, "#$%&()*+,-.:;<=>@");
     }
 }
