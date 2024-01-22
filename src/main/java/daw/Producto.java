@@ -102,6 +102,17 @@ public class Producto {
         sb.append('}');
         return sb.toString();
     }
+    
+    public String datosTicket(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Producto{");
+        sb.append("ID=").append(ID);
+        sb.append(", descripcion=").append(descripcion);
+        sb.append(", precio=").append(precio);
+        sb.append(", IVA=").append(IVA);
+        sb.append('}');
+        return sb.toString();
+    }
 
     
 }

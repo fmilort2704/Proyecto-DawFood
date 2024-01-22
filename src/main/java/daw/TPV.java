@@ -6,7 +6,6 @@ package daw;
 
 import interfaces.InterfazTipoUsuario;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 import org.apache.commons.lang3.RandomStringUtils;
 

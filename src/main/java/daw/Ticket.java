@@ -68,6 +68,28 @@ public class Ticket {
     public void setFechaHoraOperacion(LocalDateTime fechaHoraOperacion) {
         this.fechaHoraOperacion = fechaHoraOperacion;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ticket{");
+        sb.append("ID=").append(ID);
+        sb.append(", numPedido=").append(numPedido);
+        sb.append(", listaProductos=").append(listaProductos);
+        sb.append(", importeTotal=").append(importeTotal);
+        sb.append(", fechaHoraOperacion=").append(fechaHoraOperacion);
+        sb.append('}');
+        return sb.toString();
+    }
     
+    public String ticketCompra(){
+        String ticket = """
+               ---------------------------------------
+               ID Ticket %d             Núm. Pedido %d
+               
+               
+               """.formatted(this.ID, this.numPedido);
+        return ticket;
+    }
     
 }
