@@ -12,7 +12,7 @@ public enum Subcategoria {
     //Declaracion de los diferentes tipos de subcategorias
     POKE("Poke"),
     WRAP("Wrap"),
-    LOCA_MOCO("Loco Moco"),
+    LOCO_MOCO("Loco Moco"),
     HELADO("Helado"),
     FRUTA("Fruta"),
     TARTA("Tarta"),

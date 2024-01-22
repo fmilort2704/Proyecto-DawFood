@@ -17,7 +17,7 @@ public class Carta {
 //        ArrayList<Subcategoria> subcategoriaComidas = new ArrayList<>();
 //        subcategoriaComidas.add(Subcategoria.POKE);
 //        subcategoriaComidas.add(Subcategoria.WRAP);
-//        subcategoriaComidas.add(Subcategoria.LOCA_MOCO);
+//        subcategoriaComidas.add(Subcategoria.LOCO_MOCO);
 //        return subcategoriaComidas;
 //    }
 //    
@@ -48,7 +48,7 @@ public class Carta {
         listaProductos.add(new Producto("Wrap de ternera", Categoria.COMIDA,
                 Subcategoria.WRAP, 12.99, IVA.IVA_DIEZ, 25));
         listaProductos.add(new Producto("Loco Moko", Categoria.COMIDA,
-                Subcategoria.LOCA_MOCO, 10.99, IVA.IVA_DIEZ, 32));
+                Subcategoria.LOCO_MOCO, 10.99, IVA.IVA_DIEZ, 32));
         listaProductos.add(new Producto("Agua", Categoria.BEBIDA,
                 Subcategoria.AGUA, 1.20, IVA.IVA_DIEZ, 54));
         listaProductos.add(new Producto("Cerveza", Categoria.BEBIDA,
@@ -83,7 +83,7 @@ public class Carta {
         listaComida.add(new Producto("Wrap de ternera", Categoria.COMIDA,
                 Subcategoria.WRAP, 12.99, IVA.IVA_DIEZ, 25));
         listaComida.add(new Producto("Loco Moko", Categoria.COMIDA,
-                Subcategoria.LOCA_MOCO, 10.99, IVA.IVA_DIEZ, 32));
+                Subcategoria.LOCO_MOCO, 10.99, IVA.IVA_DIEZ, 32));
         return listaComida;
     }
 
@@ -126,7 +126,7 @@ public class Carta {
 
         switch (opcionElegida) {
             case COMIDA -> {
-                String[] opcionesMenuComida = {"1.- " + Subcategoria.POKE, "2.- " + Subcategoria.WRAP + "3.- " + Subcategoria.LOCA_MOCO};
+                String[] opcionesMenuComida = {"1.- " + Subcategoria.POKE, "2.- " + Subcategoria.WRAP + "3.- " + Subcategoria.LOCO_MOCO};
                 Subcategoria opcionElegidaComida = (Subcategoria) JOptionPane.showInputDialog(null,
                         "Selector de subcategorias", "Selector de subcategorias", JOptionPane.QUESTION_MESSAGE,
                         null, opcionesMenuComida, "1.- " + Subcategoria.POKE);
@@ -139,7 +139,7 @@ public class Carta {
                         JOptionPane.showInputDialog("Wrap de pollo: ");
                         JOptionPane.showInputDialog("Poke de ternera: ");
                     }
-                    case LOCA_MOCO -> {
+                    case LOCO_MOCO -> {
                         JOptionPane.showInputDialog("Loca moco : ");
                     }
                 }

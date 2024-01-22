@@ -4,9 +4,10 @@
  */
 package daw;
 
-import interfaces.InterfazTipoUsuario;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
+import javax.swing.UIManager;
 import org.apache.commons.lang3.RandomStringUtils;
 
 /**
@@ -19,16 +20,46 @@ public class TPV {
     private LocalDateTime fechaHoraSistema;
     private String direccion;
     private String password;
+    private ArrayList<Producto> cartaProductos;
+    private ArrayList<Producto> carrito;
+    private ArrayList<Ticket> baseDatosTicket;
 
     public TPV(String direccion) {
         this.ID = UUID.randomUUID();
         this.fechaHoraSistema = LocalDateTime.now();
         this.direccion = direccion;
         this.password = crearPassword();
+        this.cartaProductos = CartaNoe.listaProductos();
+        this.carrito = new ArrayList<>();
+        this.baseDatosTicket = new ArrayList<>();
     }
 
     public TPV() {
         this.ID = UUID.randomUUID();
+    }
+
+    public ArrayList<Producto> getCartaProductos() {
+        return cartaProductos;
+    }
+
+    public void setCartaProductos(ArrayList<Producto> cartaProductos) {
+        this.cartaProductos = cartaProductos;
+    }
+
+    public ArrayList<Producto> getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(ArrayList<Producto> carrito) {
+        this.carrito = carrito;
+    }
+
+    public ArrayList<Ticket> getBaseDatosTicket() {
+        return baseDatosTicket;
+    }
+
+    public void setBaseDatosTicket(ArrayList<Ticket> baseDatosTicket) {
+        this.baseDatosTicket = baseDatosTicket;
     }
 
     public UUID getID() {
@@ -61,11 +92,6 @@ public class TPV {
         sb.append('}');
         return sb.toString();
     }
-    
-    public void encenderTPV(){
-        InterfazTipoUsuario interfaz = new InterfazTipoUsuario();
-        interfaz.setVisible(true);
-    }
 
     private String crearPassword(){
         return RandomStringUtils.randomAlphabetic(3)
@@ -73,4 +99,24 @@ public class TPV {
                 + RandomStringUtils.randomNumeric(1)
                 + RandomStringUtils.random(1, "#$%&()*+,-.:;<=>@");
     }
+    
+    public void encenderTPV(){
+        
+        UIManager.put("OptionPane.cancelButtonText", "Atrás");
+        UIManager.put("OptionPane.okButtonText", "Aceptar");
+        
+        int opcionModo = UtilidadesTPV.opcionModo();
+        
+        if(opcionModo == 1){
+            while(true){
+                CartaNoe.elegirProducto(this);
+            }
+            
+            
+            
+            
+        }
+        
+    }
+    
 }
