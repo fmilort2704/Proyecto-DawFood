@@ -5,12 +5,21 @@
 package daw;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author francisco
  */
 public class UtilidadesCliente {
+//    // Array de String con las opciones a mostrar
+//String[] opcionesMenu = {"1.- PIN", "2.- Sistema operativo", "3.- Contraseña personalizada"};
+//
+//// Método de JOptionPane para mostrar la lista desplegable. 
+//// Este método devuelve un tipo Object que convertimos a String y guardamos en la variable opcionElegida
+//String opcionElegida = (String) JOptionPane.showInputDialog(null,
+//        "Elige una opción", "Generador de contraseñas",
+//        JOptionPane.QUESTION_MESSAGE , null, opcionesMenu, "1.- PIN");
     private ArrayList <Producto> listaCarrito;
     public UtilidadesCliente() {
         listaCarrito = new ArrayList<>();
@@ -24,9 +33,9 @@ public class UtilidadesCliente {
     
     //Muestra los elementos que se encuentran en el carrito
     public void mostrarElementosCarrito(){
-        System.out.println("Los productos del carrito son: ");
+        JOptionPane.showInputDialog("Los productos del carrito son: ");
         for (Producto producto : listaCarrito) {
-            System.out.println("- " + producto.toString());
+            JOptionPane.showInputDialog("- " + producto);
         }
     }
     
