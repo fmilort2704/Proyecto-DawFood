@@ -102,7 +102,9 @@ public class TPV {
     
     public void encenderTPV(){
         
-        UIManager.put("OptionPane.cancelButtonText", "Atrás");
+        System.out.println("Contraseña Admin: " + crearPassword());
+        
+        UIManager.put("OptionPane.cancelButtonText", "Volver");
         UIManager.put("OptionPane.okButtonText", "Aceptar");
         
         int opcionModo = UtilidadesTPV.opcionModo();

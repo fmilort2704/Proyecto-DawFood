@@ -59,6 +59,10 @@ public class CartaNoe {
         Categoria opcionElegida = (Categoria) JOptionPane.showInputDialog(null,
                 "Selector de categorias", "TPV", JOptionPane.QUESTION_MESSAGE,
                 null, valoresCategorias, valoresCategorias[0]);
+        
+        if(opcionElegida == null){
+            UtilidadesTPV.opcionModo();
+        }
 
         switch (opcionElegida) {
             case COMIDA -> {
@@ -82,11 +86,14 @@ public class CartaNoe {
         Subcategoria opcionElegidaSubcategoria = (Subcategoria) JOptionPane.showInputDialog(null,
                 "Selector de subcategorias", "TPV", JOptionPane.QUESTION_MESSAGE,
                 null, opcionesSubcategorias, Subcategoria.POKE);
+        
+        if(opcionElegidaSubcategoria == null){
+            elegirProducto(tpv);
+        }
 
         ArrayList<Producto> productosAMostrar = new ArrayList<>();
         ArrayList<String> nombreProductosAMostrar = new ArrayList<>();
-        //Falla porque al elegir una subcategoria introduce todos los elementos 
-        //de esa categoria en el carrito
+
         for (int i = 0; i < baseDatosProductos.size(); i++) {
             if (baseDatosProductos.get(i).getStock() > 0
                     && baseDatosProductos.get(i).getSubcategoria().equals(opcionElegidaSubcategoria)) {
@@ -99,6 +106,10 @@ public class CartaNoe {
                 "Selector de subcategorias", "TPV", JOptionPane.QUESTION_MESSAGE,
                 null, nombreProductosAMostrar.toArray(),
                 nombreProductosAMostrar.get(0));
+        
+        if(opcionElegidaProducto == null){
+            anyadirProductoACarrito(tpv, baseDatosProductos, s1, s2, s3);
+        }
 
         for (int i = 0; i < productosAMostrar.size(); i++) {
             if (opcionElegidaProducto.equals(productosAMostrar.get(i).getDescripcion())) {
