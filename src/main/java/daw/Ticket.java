@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author francisco
  */
 public class Ticket {
+    //La fecha se introduce al generar el objeto ticket aunque tendria que ser la fecha de hoy siempre
     private int ID;
     private int numPedido;
     private ArrayList<Producto> listaProductos;

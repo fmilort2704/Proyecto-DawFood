@@ -85,7 +85,8 @@ public class CartaNoe {
 
         ArrayList<Producto> productosAMostrar = new ArrayList<>();
         ArrayList<String> nombreProductosAMostrar = new ArrayList<>();
-
+        //Falla porque al elegir una subcategoria introduce todos los elementos 
+        //de esa categoria en el carrito
         for (int i = 0; i < baseDatosProductos.size(); i++) {
             if (baseDatosProductos.get(i).getStock() > 0
                     && baseDatosProductos.get(i).getSubcategoria().equals(opcionElegidaSubcategoria)) {

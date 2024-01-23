@@ -140,7 +140,7 @@ public class Carta {
                         JOptionPane.showInputDialog("Poke de ternera: ");
                     }
                     case LOCO_MOCO -> {
-                        JOptionPane.showInputDialog("Loca moco : ");
+                        JOptionPane.showInputDialog("Loca moco: ");
                     }
                 }
             }
@@ -149,12 +149,30 @@ public class Carta {
                 Subcategoria opcionElegidaBebida = (Subcategoria) JOptionPane.showInputDialog(null,
                         "Selector de subcategorias", "Selector de subcategorias", JOptionPane.QUESTION_MESSAGE,
                         null, opcionesMenuBebida, "1.- " + Subcategoria.AGUA);
+                if (opcionElegidaBebida == Subcategoria.REFRESCO) {
+                    JOptionPane.showInputDialog("Cocacola: ");
+                    JOptionPane.showInputDialog("Nestea: ");
+                }
             }
             case POSTRE -> {
                 String[] opcionesMenuPostre = {"1.- " + Subcategoria.FRUTA, "2.- " + Subcategoria.HELADO + "3.- " + Subcategoria.TARTA};
-                Subcategoria opcionElegidaPotre = (Subcategoria) JOptionPane.showInputDialog(null,
+                Subcategoria opcionElegidaPostre = (Subcategoria) JOptionPane.showInputDialog(null,
                         "Selector de subcategorias", "Selector de subcategorias", JOptionPane.QUESTION_MESSAGE,
                         null, opcionesMenuPostre, "1.- " + Subcategoria.FRUTA);
+                switch (opcionElegidaPostre) {
+                    case HELADO -> {
+                        JOptionPane.showInputDialog("Helado de chocolate: ");
+                        JOptionPane.showInputDialog("Helado de vainilla: ");
+                    }
+                    case FRUTA -> {
+                        JOptionPane.showInputDialog("Platano: ");
+                        JOptionPane.showInputDialog("Manzana: ");
+                    }
+                    case TARTA -> {
+                        JOptionPane.showInputDialog("Tarta de chocolate: ");
+                        JOptionPane.showInputDialog("Tarta de fresa: ");
+                    }
+                }
             }
         }
     }

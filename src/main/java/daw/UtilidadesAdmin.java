@@ -4,7 +4,9 @@
  */
 package daw;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,4 +104,42 @@ public class UtilidadesAdmin {
     public void añadirPostre(Producto postre, ArrayList<Producto> listaPostre){
         listaPostre.add(postre);
     }
+    
+    public static void consultarTickets(ArrayList<Ticket> listaTicket){
+        JOptionPane.showInputDialog("La lista de ventas hasta el dia de hoy es:");
+        for (Ticket ticket : listaTicket) {
+            JOptionPane.showInputDialog("- " + ticket);
+        }
+    }
+    
+    //Ver los pedidos de la lista entera de ticket durente el dia de hoy
+    public static void verPedidosDia(LocalDateTime dia, ArrayList<Ticket> listaTicket){
+        JOptionPane.showInputDialog("Los ticket de hoy son:");
+        ArrayList<Ticket> listaTicketHoy = new ArrayList<> ();
+        for (int i = 0; i < listaTicket.size(); i++) {
+            if(listaTicket.get(i).getFechaHoraOperacion().isEqual(dia)){
+                listaTicketHoy.add(listaTicket.get(i));
+            }
+        }
+        for (Ticket ticket : listaTicketHoy) {
+            JOptionPane.showInputDialog("- " + ticket);
+        }
+        
+    }
+    //Ver los pedidos de la lista entera de ticket hasta una fecha concreta
+    public static void verPedidosHastaFecha(LocalDateTime diaLimite, ArrayList<Ticket> listaTicket){
+        ArrayList<Ticket> listaTicketFechaConcreta = new ArrayList<> ();
+        JOptionPane.showInputDialog("Los tickets hasta este dia son:");
+        for (int i = 0; i < listaTicket.size(); i++) {
+            if(listaTicket.get(i).getFechaHoraOperacion().isBefore(diaLimite)){
+                listaTicketFechaConcreta.add(listaTicket.get(i));
+            }
+            
+        }
+        for (Ticket ticket : listaTicketFechaConcreta) {
+            JOptionPane.showInputDialog("- " + ticket);
+        }
+    }
+    
+    
 }
