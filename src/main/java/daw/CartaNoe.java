@@ -50,7 +50,7 @@ public class CartaNoe {
         return listaProductos;
     }
 
-    public static void elegirProducto(TPV tpv) {
+    public static void seleccionarProducto(TPV tpv) {
 
         ArrayList<Producto> baseDatosProductos = tpv.getCartaProductos();
 
@@ -80,7 +80,7 @@ public class CartaNoe {
         }
     }
 
-    private static void anyadirProductoACarrito(TPV tpv, ArrayList<Producto> baseDatosProductos, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
+    public static void anyadirProductoACarrito(TPV tpv, ArrayList<Producto> baseDatosProductos, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
         Subcategoria[] opcionesSubcategorias = {s1, s2, s3};
 
         Subcategoria opcionElegidaSubcategoria = (Subcategoria) JOptionPane.showInputDialog(null,
@@ -88,7 +88,7 @@ public class CartaNoe {
                 null, opcionesSubcategorias, Subcategoria.POKE);
         
         if(opcionElegidaSubcategoria == null){
-            elegirProducto(tpv);
+            seleccionarProducto(tpv);
         }
 
         ArrayList<Producto> productosAMostrar = new ArrayList<>();
@@ -113,8 +113,12 @@ public class CartaNoe {
 
         for (int i = 0; i < productosAMostrar.size(); i++) {
             if (opcionElegidaProducto.equals(productosAMostrar.get(i).getDescripcion())) {
+                productosAMostrar.get(i).setStock(1);
                 tpv.getCarrito().add(productosAMostrar.get(i));
             }
+        }
+        for (Producto p : tpv.getCarrito()) {
+            System.out.println(p);
         }
     }
 

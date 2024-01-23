@@ -111,12 +111,8 @@ public class TPV {
         
         if(opcionModo == 1){
             while(true){
-                CartaNoe.elegirProducto(this);
-            }
-            
-            
-            
-            
+                CartaNoe.seleccionarProducto(this);
+            }    
         }
         
     }

@@ -4,7 +4,12 @@
  */
 package daw;
 
+import static daw.Categoria.BEBIDA;
+import static daw.Categoria.COMIDA;
+import static daw.Categoria.POSTRE;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -42,74 +47,11 @@ public class MainPruebas {
 //        System.out.println(tarjetaCliente);
 //        TPV tpv1 = new TPV("Estepona");
 //        tpv1.encenderTPV();
-//        ArrayList<Producto> baseDatosProductos = tpv1.getCartaProductos();
-//
-//        Categoria[] valoresCategorias = Categoria.values();
-//
-//        Categoria opcionElegida = (Categoria) JOptionPane.showInputDialog(null,
-//                "Selector de categorias", "TPV", JOptionPane.YES_NO_CANCEL_OPTION,
-//                null, valoresCategorias, valoresCategorias[0]);
-
-
-          mostrarMenuPrincipal();
+        UtilidadesTPV.opcion5Botones();
 
     }
 
-    public static void mostrarMenuPrincipal() {
-        String[] opcionesMenu = {"Ver menú", "Salir"};
+    
 
-        while (true) {
-            // Crear un panel para personalizar el JOptionPane
-            JPanel panel = new JPanel();
-            JComboBox<String> comboBox = new JComboBox<>(opcionesMenu);
-            JButton botonAceptar = new JButton("Aceptar");
-            JButton botonVolver = new JButton("Volver");
-            JButton botonInicio = new JButton("Inicio");
-
-            panel.setLayout(new GridLayout(0, 1));
-            panel.add(new JLabel("Seleccione una opción: "));
-            panel.add(comboBox);
-            panel.add(botonAceptar);
-            panel.add(botonVolver);
-            panel.add(botonInicio);
-
-            int opcionSeleccionada = JOptionPane.showOptionDialog(
-                    null,
-                    panel,
-                    "Menú Principal",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    new Object[]{},
-                    opcionesMenu[0]);
-            
-            System.out.println(opcionSeleccionada);
-
-            switch (opcionSeleccionada) {
-                case JOptionPane.CLOSED_OPTION:
-                    // Se ha cerrado la ventana
-                    JOptionPane.showMessageDialog(null, "Ha salido del programa.");
-                    System.exit(0); // Salir del programa
-                case 0:
-                    // Se ha seleccionado una opción del menú principal
-                    realizarAccion(comboBox.getSelectedItem().toString());
-                    break;
-                case 1:
-                    // Se ha seleccionado "Salir"
-                    JOptionPane.showMessageDialog(null, "Ha salido del programa.");
-                    System.exit(0); // Salir del programa
-                default:
-                    // Se ha seleccionado "Inicio"
-                    JOptionPane.showMessageDialog(null, "Volviendo al inicio.");
-                    break;
-            }
-        }
-    }
-
-    public static void realizarAccion(String opcion) {
-        // Puedes agregar aquí la lógica para cada opción del menú principal
-        // En este ejemplo, simplemente mostraremos un mensaje con la acción seleccionada
-        JOptionPane.showMessageDialog(null, "Realizando acción: " + opcion);
-    }
 
 }

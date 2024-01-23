@@ -4,7 +4,9 @@
  */
 package daw;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,6 +23,18 @@ public class UtilidadesTPV {
                 JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
         
         return opcionUsuario;
+    }
+    
+    public static int opcion5Botones(){
+        UIManager.put("OptionPane.background", new Color(32, 139, 223));
+        UIManager.put("Panel.background", new Color(32, 139, 223));
+        
+        Object [] options = {"CANCELAR", "IMPRIMIR", "VISTA PREVIA", "Hola", "Qué hay?"};
+        int opcion = JOptionPane.showOptionDialog(null, "Elige imprimir o cancelar", "Aviso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[1]);
+        System.out.println(opcion);
+        return opcion;
     }
     
     
