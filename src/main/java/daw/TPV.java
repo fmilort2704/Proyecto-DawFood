@@ -30,7 +30,7 @@ public class TPV {
         this.fechaHoraSistema = LocalDateTime.now();
         this.direccion = direccion;
         this.password = crearPassword();
-        this.cartaProductos = CartaNoe.listaProductos();
+        this.cartaProductos = UtilidadesTPV.listaProductos();
         this.carrito = new ArrayList<>();
         this.baseDatosTicket = new ArrayList<>();
     }
@@ -110,11 +110,11 @@ public class TPV {
         UIManager.put("OptionPane.background", new Color(32, 139, 223));
         UIManager.put("Panel.background", new Color(32, 139, 223));
         
-        int opcionModo = UtilidadesTPV.opcionModo();
+        int opcionModo = UtilidadesTPV.seleccionarModo();
         
         if(opcionModo == 1){
             while(true){
-                CartaNoe.seleccionarCategoría(this);
+                UtilidadesTPV.seleccionarCategoría(this);
             }    
         }
         
