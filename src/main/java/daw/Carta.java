@@ -191,5 +191,34 @@ public class Carta {
         System.out.println("El precio sin iva es: " + producto.getPrecio() + "y el"
                 + "precio con el IVA es: " + precioConIva);
     }
+    
+    //Muestra el precio de los productos con el iva aplicado
+    public ArrayList<Double> calcularIvaPorProducto(ArrayList<Producto> listaCarrito) {
+        ArrayList<Double> listaPrecioProductosIva = new ArrayList<>();
+        for (int i = 0; i < listaCarrito.size(); i++) {
+            double precioIva = listaCarrito.get(i).getPrecio() * listaCarrito.get(i).getIVA().getPORCENTAJE_IVA();
+            listaPrecioProductosIva.add(precioIva);
+        }
+        return listaPrecioProductosIva;
+    }
+
+    //Muestra el precio de toda la compra con el iva aplicado
+    public double calcularPrecioFinalIva(ArrayList<Producto> listaCarrito) {
+        double cantTotalConIva = 0;
+        for (int i = 0; i < listaCarrito.size(); i++) {
+            cantTotalConIva = +listaCarrito.get(i).getPrecio()
+                    * listaCarrito.get(i).getIVA().getPORCENTAJE_IVA();
+        }
+        return cantTotalConIva;
+    }
+
+    //Muestra el precio de toda la compra sin el iva aplicado
+    public double calcularPrecioSinIva(ArrayList<Producto> listaCarrito) {
+        double cantTotalSinIva = 0;
+        for (int i = 0; i < listaCarrito.size(); i++) {
+            cantTotalSinIva = +listaCarrito.get(i).getPrecio();
+        }
+        return cantTotalSinIva;
+    }
 
 }
