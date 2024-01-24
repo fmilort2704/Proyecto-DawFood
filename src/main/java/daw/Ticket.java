@@ -4,41 +4,43 @@
  */
 package daw;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  *
  * @author francisco
  */
 public class Ticket {
-    //La fecha se introduce al generar el objeto ticket aunque tendria que ser la fecha de hoy siempre
-    private int ID;
+
+    private UUID ID;
     private int numPedido;
     private ArrayList<Producto> listaProductos;
-    private int importeTotal;
-    private LocalDateTime fechaHoraOperacion;
-    private static int contadorId = 0;
+    private double importeTotal;
+    private LocalDate fechaOperacion;
+    private LocalTime horaOperacion;
     private static int contadorNumPedido = 0;
 
-    public Ticket(ArrayList<Producto> listaProductos, int importeTotal, LocalDateTime fechaHoraOperacion) {
-        this.ID = contadorId;
-        contadorId++;
-        this.numPedido = contadorNumPedido;
+    public Ticket(ArrayList<Producto> listaProductos, double importeTotal, LocalDate fechaOperacion, LocalTime horaOperacion) {
+        this.ID = UUID.randomUUID();
         contadorNumPedido++;
+        this.numPedido = contadorNumPedido;
         this.listaProductos = listaProductos;
         this.importeTotal = importeTotal;
-        this.fechaHoraOperacion = fechaHoraOperacion;
+        this.fechaOperacion = fechaOperacion;
+        this.horaOperacion = horaOperacion;
     }
 
     public Ticket() {
-        this.ID = contadorId;
-        contadorId++;
-        this.numPedido = contadorNumPedido;
+        this.ID = UUID.randomUUID();
         contadorNumPedido++;
+        this.numPedido = contadorNumPedido;
     }
 
-    public int getID() {
+    public UUID getID() {
         return ID;
     }
 
@@ -54,43 +56,61 @@ public class Ticket {
         this.listaProductos = listaProductos;
     }
 
-    public int getImporteTotal() {
+    public double getImporteTotal() {
         return importeTotal;
     }
 
-    public void setImporteTotal(int importeTotal) {
+    public void setImporteTotal(double importeTotal) {
         this.importeTotal = importeTotal;
     }
 
-    public LocalDateTime getFechaHoraOperacion() {
-        return fechaHoraOperacion;
+    public LocalDate getFechaOperacion() {
+        return fechaOperacion;
     }
 
-    public void setFechaHoraOperacion(LocalDateTime fechaHoraOperacion) {
-        this.fechaHoraOperacion = fechaHoraOperacion;
+    public void setFechaHoraOperacion(LocalDate fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
+    }
+
+    public LocalTime getHoraOperacion() {
+        return horaOperacion;
+    }
+
+    public void setHoraOperacion(LocalTime horaOperacion) {
+        this.horaOperacion = horaOperacion;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ticket{");
-        sb.append("ID=").append(ID);
-        sb.append(", numPedido=").append(numPedido);
-        sb.append(", listaProductos=").append(listaProductos);
-        sb.append(", importeTotal=").append(importeTotal);
-        sb.append(", fechaHoraOperacion=").append(fechaHoraOperacion);
-        sb.append('}');
-        return sb.toString();
-    }
-    
-    public String ticketCompra(){
         String ticket = """
-               ---------------------------------------
-               ID Ticket %d             Núm. Pedido %d
-               
-               
-               """.formatted(this.ID, this.numPedido);
+                        ------------------------------------------------------------------
+                                              Restaurante PokéZen
+                        
+                        ID Ticket: %s
+                        Número de pedido: %d
+                        Fecha: %s       Hora: %s
+                        ------------------------------------------------------------------
+                        Producto    Precio    Cantidad    IVA 
+                        ------------------------------------------------------------------
+                        """.formatted(this.ID.toString(), this.numPedido,
+                this.fechaOperacion.format(DateTimeFormatter.ofPattern("d/M/uuuu")),
+                this.horaOperacion.format(DateTimeFormatter.ofPattern("H:m")));
+
+        for (Producto p : this.listaProductos) {
+            ticket += """
+                      %s        %.2f        %d       %.2f%%
+                      """.formatted(p.getDescripcion(), p.getPrecio(), 
+                              p.getStock(),p.getIVA().getPORCENTAJE_IVA());
+        }
+        ticket += """
+                ------------------------------------------------------------------
+                  Total: %.2f    
+                  
+                                  ---  Gracias por su visita  ---
+                ------------------------------------------------------------------"""
+                .formatted(this.importeTotal);
+
         return ticket;
     }
-    
+
 }

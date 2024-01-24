@@ -6,6 +6,8 @@ package daw;
 
 import java.awt.Color;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -154,7 +156,7 @@ public class UtilidadesTPV {
 
         for (int i = 0; i < productosAMostrar.size(); i++) {
             if (opcionElegidaProducto.equals(productosAMostrar.get(i).getDescripcion())) {
-                p = productosAMostrar.get(i);
+                p = new Producto(productosAMostrar.get(i));
             }
         }
 
@@ -176,7 +178,7 @@ public class UtilidadesTPV {
                         JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
             }
         } while (excepcion);
-        
+
         p.setStock(Math.abs(numProductos));
         tpv.getCarrito().add(p);
     }
@@ -290,16 +292,28 @@ public class UtilidadesTPV {
                                             UtilidadesTarjeta.baseDatosTarjeta().get(i).getSaldo() - totalPagar);
                                 }
                             }
-                            for (int i = 0; i < tpv.getCarrito().size(); i++) {
-                                for (int j = 0; j < tpv.getCartaProductos().size(); j++) {
-                                    if (tpv.getCarrito().get(i).equals(tpv.getCartaProductos().get(j))) {
-                                        tpv.getCartaProductos().get(j).setStock(
-                                                tpv.getCartaProductos().get(j).getStock()
-                                                - tpv.getCarrito().get(i).getStock());
+
+                            for (Producto p1 : tpv.getCarrito()) {
+                                for (Producto p2 : tpv.getCartaProductos()) {
+                                    if(p1.equals(p2)){
+                                        p2.setStock(p2.getStock() - p1.getStock());
                                     }
                                 }
                             }
+
+                            Ticket t = new Ticket(new ArrayList<Producto>(tpv.getCarrito()),
+                                    totalPagar, LocalDate.now(),
+                                    LocalTime.now());
+                            tpv.getBaseDatosTicket().add(t);
                             tpv.getCarrito().clear();
+
+                            String[] opciones = {"Aceptar"};
+
+                            JOptionPane.showOptionDialog(null,
+                                    t, "TPV", JOptionPane.DEFAULT_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+                            seleccionarCategoría(tpv);
+
                         } else {
                             String[] opciones = {"Aceptar"};
 

@@ -20,9 +20,8 @@ public class Producto {
     private static int contadorId = 0;
 
     public Producto(String descripcion, Categoria categoria, Subcategoria subcategoria, double precio, IVA IVA, int stock) {
-
-        this.ID = contadorId;
         contadorId++;
+        this.ID = contadorId;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.subcategoria = subcategoria;
@@ -30,10 +29,20 @@ public class Producto {
         this.IVA = IVA;
         this.stock = stock;
     }
+    
+    public Producto(Producto pOrigen){
+        this.ID = pOrigen.ID;
+        this.descripcion = pOrigen.descripcion;
+        this.categoria = pOrigen.categoria;
+        this.subcategoria = pOrigen.subcategoria;
+        this.precio = pOrigen.precio;
+        this.IVA = pOrigen.IVA;
+        this.stock = pOrigen.stock;
+    }
 
     public Producto() {
-        this.ID = contadorId;
         contadorId++;
+        this.ID = contadorId;
     }
 
     public int getID() {
@@ -89,6 +98,30 @@ public class Producto {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.ID;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto other = (Producto) obj;
+        return this.ID == other.ID;
+    }
+    
+    
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Producto{");
@@ -102,17 +135,5 @@ public class Producto {
         sb.append('}');
         return sb.toString();
     }
-    
-    public String datosTicket(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Producto{");
-        sb.append("ID=").append(ID);
-        sb.append(", descripcion=").append(descripcion);
-        sb.append(", precio=").append(precio);
-        sb.append(", IVA=").append(IVA);
-        sb.append('}');
-        return sb.toString();
-    }
 
-    
 }
