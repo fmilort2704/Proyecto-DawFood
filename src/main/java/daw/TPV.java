@@ -95,7 +95,7 @@ public class TPV {
     }
 
     private String crearPassword(){
-        return RandomStringUtils.randomAlphabetic(3)
+        return RandomStringUtils.randomAlphabetic(3).toLowerCase()
                 + RandomStringUtils.randomAlphabetic(1).toUpperCase()
                 + RandomStringUtils.randomNumeric(1)
                 + RandomStringUtils.random(1, "#$%&()*+,-.:;<=>@");

@@ -91,7 +91,7 @@ public class UtilidadesTPV {
                 UtilidadesTPV.seleccionarModo();
             }
             case 4 ->{
-                //Cesta compra
+                verCesta(tpv);
             }
         }
     }
@@ -120,7 +120,7 @@ public class UtilidadesTPV {
                 seleccionarCategoría(tpv);
             }
             case 4 ->{
-                //Cesta compra
+                verCesta(tpv);
             }
         }
     }
@@ -155,7 +155,45 @@ public class UtilidadesTPV {
         }
     }
     
-    
+    public static void verCesta(TPV tpv){
+        
+        double totalPagar = 0;
+        double totalConIva = 0;
+        String infoProductosCesta = "       PRODUCTOS EN LA CESTA \n \n";
+        
+        for (int i = 0; i < tpv.getCarrito().size(); i++) {
+            infoProductosCesta += tpv.getCarrito().get(i).getDescripcion() 
+                    + "     " + tpv.getCarrito().get(i).getPrecio() + "\n";
+            
+            totalPagar += tpv.getCarrito().get(i).getPrecio();
+            
+            totalConIva += tpv.getCarrito().get(i).getPrecio() 
+                    * tpv.getCarrito().get(i).getIVA().getPORCENTAJE_IVA();
+        }
+        
+        infoProductosCesta += "\n" + "Total sin IVA: %.2f".formatted(totalPagar) 
+                + "     Total con IVA: %.2f".formatted(totalConIva) + "\n";
+        
+        
+        Object [] options = {"Finalizar compra", "Cancelar compra", "Volver"};
+        int opcionElegida = JOptionPane.showOptionDialog(null, 
+                infoProductosCesta, "TPV",JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.PLAIN_MESSAGE,null, options, options[2]);
+        
+        switch(opcionElegida){
+            case 0 ->{
+                //Pantalla de pago
+            }
+            case 1 ->{
+                tpv.getCarrito().clear();
+                seleccionarModo();
+            }
+            case 2 ->{
+                seleccionarCategoría(tpv);
+            }
+        }
+        
+    }
     
     
 }
