@@ -17,6 +17,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -47,11 +49,8 @@ public class MainPruebas {
 //        System.out.println(tarjetaCliente);
         TPV tpv1 = new TPV("Estepona");
         tpv1.encenderTPV();
-//        UtilidadesTPV.opcion5Botones();
+        
 
     }
-
-    
-
 
 }

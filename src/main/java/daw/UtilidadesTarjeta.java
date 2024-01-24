@@ -47,8 +47,8 @@ public class UtilidadesTarjeta {
         }
         return false;
     }
-    
-    public Tarjeta obtenerTarjetaCliente(String digitosCliente){
+
+    public static Tarjeta obtenerTarjetaCliente(String digitosCliente) {
         ArrayList<Tarjeta> baseDatosTarjeta = baseDatosTarjeta();
         Tarjeta tarjetaCliente = new Tarjeta();
 
@@ -63,18 +63,20 @@ public class UtilidadesTarjeta {
         return tarjetaCliente;
     }
 
-    public LocalDate pedirMesAnyo(int mes, int anyo) {
+    public static LocalDate pedirMesAnyo(int mes, int anyo) {
         LocalDate fecha = LocalDate.MIN;
+
         if (((mes >= LocalDate.MIN.getMonthValue() && mes <= LocalDate.MAX.getMonthValue())
                 && (anyo >= LocalDate.MIN.getYear() && anyo <= LocalDate.MAX.getYear()))) {
             fecha = LocalDate.of(anyo, mes, LocalDate.MIN.getDayOfMonth());
         }
+
         return fecha;
     }
 
-    public boolean fechaCaducidadYCVVValidos(String digitosCliente, LocalDate fechaCaducidad, String CVV) {
+    public static boolean fechaCaducidadYCVVValidos(String digitosCliente, LocalDate fechaCaducidad, String CVV) {
         Tarjeta tarjetaCliente = obtenerTarjetaCliente(digitosCliente);
-        
+
         //comprobamos que la fecha introducida no esté pasada (caducada)
         //y que la fecha introducida es la misma que está guardada
         //en los datos de la tarjeta de nuestra base de datos
@@ -88,10 +90,10 @@ public class UtilidadesTarjeta {
         }
         return false;
     }
-    
-    public boolean saldoSuficiente(String digitosCliente, double cantidadAPagar){
+
+    public static boolean saldoSuficiente(String digitosCliente, double cantidadAPagar) {
         Tarjeta tarjetaCliente = obtenerTarjetaCliente(digitosCliente);
-        if(tarjetaCliente.getSaldo() >= cantidadAPagar){
+        if (tarjetaCliente.getSaldo() >= cantidadAPagar) {
             return true;
         }
         return false;

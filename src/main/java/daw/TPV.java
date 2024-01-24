@@ -107,8 +107,8 @@ public class TPV {
         
         UIManager.put("OptionPane.okButtonText", "Aceptar");
         UIManager.put("OptionPane.cancelButtonText", "Volver");
-        UIManager.put("OptionPane.background", new Color(32, 139, 223));
-        UIManager.put("Panel.background", new Color(32, 139, 223));
+        UIManager.put("OptionPane.background", new Color(147, 217, 196));
+        UIManager.put("Panel.background", new Color(147, 217, 196));
         
         int opcionModo = UtilidadesTPV.seleccionarModo();
         
@@ -116,6 +116,8 @@ public class TPV {
             while(true){
                 UtilidadesTPV.seleccionarCategoría(this);
             }    
+        }else {
+            
         }
         
     }

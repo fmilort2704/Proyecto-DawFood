@@ -17,9 +17,9 @@ public class Tarjeta {
     private LocalDate fechaVencimiento;
     private String CVV;
     private String nombreTitular;
-    private int saldo;
+    private double saldo;
 
-    public Tarjeta(String numTarjeta, LocalDate fechaVencimiento, String CVV, String nombreTitular, int saldo) {
+    public Tarjeta(String numTarjeta, LocalDate fechaVencimiento, String CVV, String nombreTitular, double saldo) {
         this.numTarjeta = numTarjeta;
         this.fechaVencimiento = fechaVencimiento;
         this.CVV = CVV;
@@ -46,7 +46,7 @@ public class Tarjeta {
         return nombreTitular;
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
@@ -54,18 +54,18 @@ public class Tarjeta {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.numTarjeta);
-        hash = 23 * hash + Objects.hashCode(this.fechaVencimiento);
-        hash = 23 * hash + Objects.hashCode(this.CVV);
-        hash = 23 * hash + Objects.hashCode(this.nombreTitular);
-        hash = 23 * hash + this.saldo;
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.numTarjeta);
+        hash = 17 * hash + Objects.hashCode(this.fechaVencimiento);
+        hash = 17 * hash + Objects.hashCode(this.CVV);
+        hash = 17 * hash + Objects.hashCode(this.nombreTitular);
+        hash = 17 * hash + (int) (Double.doubleToLongBits(this.saldo) ^ (Double.doubleToLongBits(this.saldo) >>> 32));
         return hash;
     }
 
@@ -81,7 +81,7 @@ public class Tarjeta {
             return false;
         }
         final Tarjeta other = (Tarjeta) obj;
-        if (this.saldo != other.saldo) {
+        if (Double.doubleToLongBits(this.saldo) != Double.doubleToLongBits(other.saldo)) {
             return false;
         }
         if (!Objects.equals(this.numTarjeta, other.numTarjeta)) {
@@ -95,6 +95,8 @@ public class Tarjeta {
         }
         return Objects.equals(this.fechaVencimiento, other.fechaVencimiento);
     }
+
+    
 
     @Override
     public String toString() {
