@@ -4,6 +4,7 @@
  */
 package daw;
 
+import java.awt.Color;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -104,14 +105,16 @@ public class TPV {
         
         System.out.println("Contraseña Admin: " + crearPassword());
         
-        UIManager.put("OptionPane.cancelButtonText", "Volver");
         UIManager.put("OptionPane.okButtonText", "Aceptar");
+        UIManager.put("OptionPane.cancelButtonText", "Volver");
+        UIManager.put("OptionPane.background", new Color(32, 139, 223));
+        UIManager.put("Panel.background", new Color(32, 139, 223));
         
         int opcionModo = UtilidadesTPV.opcionModo();
         
         if(opcionModo == 1){
             while(true){
-                CartaNoe.seleccionarProducto(this);
+                CartaNoe.seleccionarCategoría(this);
             }    
         }
         

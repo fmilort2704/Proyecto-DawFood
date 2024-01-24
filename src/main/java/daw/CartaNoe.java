@@ -50,53 +50,76 @@ public class CartaNoe {
         return listaProductos;
     }
 
-    public static void seleccionarProducto(TPV tpv) {
+    public static void seleccionarCategoría(TPV tpv) {
 
-        ArrayList<Producto> baseDatosProductos = tpv.getCartaProductos();
-
-        Categoria[] valoresCategorias = Categoria.values();
-
-        Categoria opcionElegida = (Categoria) JOptionPane.showInputDialog(null,
-                "Selector de categorias", "TPV", JOptionPane.QUESTION_MESSAGE,
-                null, valoresCategorias, valoresCategorias[0]);
-        
-        if(opcionElegida == null){
-            UtilidadesTPV.opcionModo();
-        }
+        Object [] options = {Categoria.COMIDA, Categoria.BEBIDA, 
+            Categoria.POSTRE, "Volver", "Ver cesta"};
+        int opcionElegida = JOptionPane.showOptionDialog(null, 
+                "Escoge una categoría", "TPV",JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.PLAIN_MESSAGE,null, options, options[3]);
 
         switch (opcionElegida) {
-            case COMIDA -> {
+            case 0 -> {
 
-                anyadirProductoACarrito(tpv, baseDatosProductos, Subcategoria.POKE, Subcategoria.WRAP, Subcategoria.LOCO_MOCO);
+                seleccionarSubcategoria(tpv, Subcategoria.POKE, 
+                        Subcategoria.WRAP, Subcategoria.LOCO_MOCO);
             }
-            case BEBIDA -> {
+            case 1 -> {
 
-                anyadirProductoACarrito(tpv, baseDatosProductos, Subcategoria.AGUA, Subcategoria.CERVEZA, Subcategoria.REFRESCO);
+                seleccionarSubcategoria(tpv, Subcategoria.AGUA,
+                        Subcategoria.CERVEZA, Subcategoria.REFRESCO);
             }
-            case POSTRE -> {
+            case 2 -> {
 
-                anyadirProductoACarrito(tpv, baseDatosProductos, Subcategoria.HELADO, Subcategoria.FRUTA, Subcategoria.TARTA);
+                seleccionarSubcategoria(tpv, Subcategoria.HELADO,
+                        Subcategoria.FRUTA, Subcategoria.TARTA);
+            }
+            case 3 ->{
+                UtilidadesTPV.opcionModo();
+            }
+            case 4 ->{
+                //Cesta compra
             }
         }
     }
 
-    public static void anyadirProductoACarrito(TPV tpv, ArrayList<Producto> baseDatosProductos, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
-        Subcategoria[] opcionesSubcategorias = {s1, s2, s3};
-
-        Subcategoria opcionElegidaSubcategoria = (Subcategoria) JOptionPane.showInputDialog(null,
-                "Selector de subcategorias", "TPV", JOptionPane.QUESTION_MESSAGE,
-                null, opcionesSubcategorias, Subcategoria.POKE);
+    public static void seleccionarSubcategoria(TPV tpv, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
         
-        if(opcionElegidaSubcategoria == null){
-            seleccionarProducto(tpv);
-        }
+        Object [] options = {s1, s2, s3, "Volver", "Ver cesta"};
+        int opcionElegida = JOptionPane.showOptionDialog(null, 
+                "Escoge una categoría", "TPV",JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.PLAIN_MESSAGE,null, options, options[3]);
 
+        switch (opcionElegida) {
+            case 0 -> {
+
+                seleccionarProducto(tpv, s1, s1, s2, s3);
+            }
+            case 1 -> {
+
+                seleccionarProducto(tpv, s2, s1, s2, s3);
+            }
+            case 2 -> {
+
+                seleccionarProducto(tpv, s3, s1, s2, s3);
+            }
+            case 3 ->{
+                seleccionarCategoría(tpv);
+            }
+            case 4 ->{
+                //Cesta compra
+            }
+        }
+    }
+    
+    private static void seleccionarProducto(TPV tpv, Subcategoria subcat, Subcategoria s1, Subcategoria s2, Subcategoria s3){
+        ArrayList<Producto> baseDatosProductos = tpv.getCartaProductos();
         ArrayList<Producto> productosAMostrar = new ArrayList<>();
         ArrayList<String> nombreProductosAMostrar = new ArrayList<>();
 
         for (int i = 0; i < baseDatosProductos.size(); i++) {
             if (baseDatosProductos.get(i).getStock() > 0
-                    && baseDatosProductos.get(i).getSubcategoria().equals(opcionElegidaSubcategoria)) {
+                    && baseDatosProductos.get(i).getSubcategoria().equals(subcat)) {
                 productosAMostrar.add(baseDatosProductos.get(i));
                 nombreProductosAMostrar.add(baseDatosProductos.get(i).getDescripcion());
             }
@@ -108,7 +131,7 @@ public class CartaNoe {
                 nombreProductosAMostrar.get(0));
         
         if(opcionElegidaProducto == null){
-            anyadirProductoACarrito(tpv, baseDatosProductos, s1, s2, s3);
+            seleccionarSubcategoria(tpv, s1, s2, s3);
         }
 
         for (int i = 0; i < productosAMostrar.size(); i++) {
@@ -116,9 +139,6 @@ public class CartaNoe {
                 productosAMostrar.get(i).setStock(1);
                 tpv.getCarrito().add(productosAMostrar.get(i));
             }
-        }
-        for (Producto p : tpv.getCarrito()) {
-            System.out.println(p);
         }
     }
 

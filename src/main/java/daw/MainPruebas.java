@@ -45,9 +45,9 @@ public class MainPruebas {
 //            }
 //        }
 //        System.out.println(tarjetaCliente);
-//        TPV tpv1 = new TPV("Estepona");
-//        tpv1.encenderTPV();
-        UtilidadesTPV.opcion5Botones();
+        TPV tpv1 = new TPV("Estepona");
+        tpv1.encenderTPV();
+//        UtilidadesTPV.opcion5Botones();
 
     }
 
