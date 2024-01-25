@@ -18,7 +18,7 @@ import javax.swing.UIManager;
  *
  * @author FX506
  */
-public class UtilidadesTPV {
+public class UtilidadesTPVFrancisco {
 
     public static ArrayList<Producto> listaProductos() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
@@ -93,7 +93,7 @@ public class UtilidadesTPV {
                         Subcategoria.FRUTA, Subcategoria.TARTA);
             }
             case 3 -> {
-                UtilidadesTPV.seleccionarModo();
+                UtilidadesTPVFrancisco.seleccionarModo();
             }
             case 4 -> {
                 verCesta(tpv);
@@ -299,12 +299,14 @@ public class UtilidadesTPV {
                                     }
                                 }
                             }
-
+                            
+                            //Crea el ticket segun los productos comprados y los guarda en la base de datos
                             Ticket t = new Ticket(new ArrayList<Producto>(tpv.getCarrito()),
                                     totalPagar, LocalDate.now(),
                                     LocalTime.now());
                             tpv.getBaseDatosTicket().add(t);
                             tpv.getCarrito().clear();
+                            
 
                             String[] opciones = {"Aceptar"};
 
@@ -351,5 +353,4 @@ public class UtilidadesTPV {
         }
 
     }
-
 }
