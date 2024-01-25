@@ -117,7 +117,7 @@ public class TPV {
                 UtilidadesTPV.seleccionarCategoría(this);
             }    
         }else {
-            
+            UtilidadesAdmin.modoMantenimiento(this);
         }
         
     }

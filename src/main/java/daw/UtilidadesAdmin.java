@@ -52,6 +52,16 @@ public class UtilidadesAdmin {
 //        listaPostre.add(postre);
 //    }
     
+    public static void modoMantenimiento(TPV tpv){
+        
+        Object[] options = {"Editar producto", "Nuevo producto",
+            "Borrar producto", "Consultar ventas" , "Volver"};
+        int opcionElegida = JOptionPane.showOptionDialog(null,
+                "Escoge una categoría", "TPV", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, options, options[4]);
+        
+    }
+    
     public static void consultarTickets(ArrayList<Ticket> listaTicket){
         JOptionPane.showInputDialog("La lista de ventas hasta el dia de hoy es:");
         for (Ticket ticket : listaTicket) {
