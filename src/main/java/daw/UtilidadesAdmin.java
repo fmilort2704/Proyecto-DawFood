@@ -20,7 +20,7 @@ public class UtilidadesAdmin {
         Object[] options = {"Editar producto", "Nuevo producto",
             "Borrar producto", "Consultar ventas", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
-                "Escoge una opción", "TPV", JOptionPane.DEFAULT_OPTION,
+                "Escoge una opción", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[4]);
 
         switch (opcionElegida) {
@@ -28,10 +28,22 @@ public class UtilidadesAdmin {
                 modificarProducto(tpv);
             }
             case 1 -> {
-                tpv.getCartaProductos().add(new Producto());
+                tpv.getCartaProductos().add(nuevoProducto(tpv));
+                //Para probar
+                for (Producto p : tpv.getCartaProductos()) {
+                    System.out.println(p);
+                }
             }
             case 2 -> {
-
+                Producto opcionElegidaProducto = (Producto) JOptionPane.showInputDialog(null,
+                        "Escoge el producto a borrar", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+                        null, tpv.getCartaProductos().toArray(),
+                        tpv.getCartaProductos().get(0));
+                for (Producto p : tpv.getCartaProductos()) {
+                    if(opcionElegidaProducto.equals(p)){
+                        tpv.getCartaProductos().remove(p);
+                    }
+                }
             }
             case 3 -> {
 
@@ -45,8 +57,9 @@ public class UtilidadesAdmin {
     private static void modificarProducto(TPV tpv) {
 
         Producto opcionElegidaProducto = (Producto) JOptionPane.showInputDialog(null,
-                "Escoge el producto a editar", "TPV", JOptionPane.QUESTION_MESSAGE,
-                null, tpv.getCartaProductos().toArray(), tpv.getCartaProductos().get(0));
+                "Escoge el producto a editar", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+                null, tpv.getCartaProductos().toArray(),
+                tpv.getCartaProductos().get(0));
 
         JTextField descrip = new JTextField();
         JTextField categ = new JTextField();
@@ -117,7 +130,7 @@ public class UtilidadesAdmin {
 
             JOptionPane.showOptionDialog(null,
                     "Cambios realizados con éxito en " + atributosCambiados,
-                    "TPV", JOptionPane.DEFAULT_OPTION,
+                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     opciones, opciones[0]);
         } else {
@@ -130,6 +143,8 @@ public class UtilidadesAdmin {
     }
 
     private static Producto nuevoProducto(TPV tpv) {
+
+        Producto producto = new Producto();
 
         JTextField descrip = new JTextField();
         JTextField categ = new JTextField();
@@ -148,25 +163,29 @@ public class UtilidadesAdmin {
         };
 
         int option = JOptionPane.showConfirmDialog(null, message,
-                "TPV", JOptionPane.OK_CANCEL_OPTION);
+                "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
 
         if (option == JOptionPane.OK_OPTION) {
 
+            producto.setDescripcion(descrip.getText());
+            producto.setPrecio(Double.parseDouble(precio.getText()));
+            producto.setStock(Integer.parseInt(stock.getText()));
+
             for (Categoria c : Categoria.values()) {
                 if (categ.getText().equalsIgnoreCase(c.getCATEGORIA())) {
-
+                    producto.setCategoria(c);
                 }
             }
 
             for (Subcategoria s : Subcategoria.values()) {
                 if (subcat.getText().equalsIgnoreCase(s.getSUBCATEGORIA())) {
-
+                    producto.setSubcategoria(s);
                 }
             }
 
             for (IVA iv : IVA.values()) {
                 if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
-
+                    producto.setIVA(iv);
                 }
             }
 
@@ -174,13 +193,7 @@ public class UtilidadesAdmin {
             modoMantenimiento(tpv);
         }
 
-        for (Producto p : tpv.getCartaProductos()) {
-            System.out.println(p);
-        }
-        
-        return new Producto(descripcion, Categoria.COMIDA, 
-                Subcategoria.TARTA, option, IVA.IVA_DIEZ, option);
-
+        return producto;
     }
 
     public static void consultarTickets(ArrayList<Ticket> listaTicket) {
