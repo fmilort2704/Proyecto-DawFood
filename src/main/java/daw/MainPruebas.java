@@ -49,7 +49,6 @@ public class MainPruebas {
 //        System.out.println(tarjetaCliente);
         TPV tpv1 = new TPV("Estepona");
         tpv1.encenderTPV();
-        
 
     }
 
