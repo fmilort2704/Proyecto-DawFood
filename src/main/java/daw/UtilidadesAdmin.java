@@ -60,6 +60,25 @@ public class UtilidadesAdmin {
                 "Escoge una categoría", "TPV", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[4]);
         
+        switch(opcionElegida){
+            case 0 ->{
+                
+            }
+            case 1 ->{
+                
+            }
+            case 2 ->{
+                
+            }
+            case 3 ->{
+                
+            }
+            case 4 ->{
+                
+            }
+        }
+        
+        
     }
     
     public static void consultarTickets(ArrayList<Ticket> listaTicket){
