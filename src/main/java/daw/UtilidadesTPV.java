@@ -199,7 +199,7 @@ public class UtilidadesTPV {
 
         for (int i = 0; i < tpv.getCarrito().size(); i++) {
             infoProductosCesta += tpv.getCarrito().get(i).getDescripcion()
-                    + "     Cant.:" + tpv.getCarrito().get(i).getStock()
+                    + "     Cant.: " + tpv.getCarrito().get(i).getStock()
                     + "     " + tpv.getCarrito().get(i).getPrecio() + "\n";
 
             totalPagar += tpv.getCarrito().get(i).getPrecio()
@@ -216,7 +216,7 @@ public class UtilidadesTPV {
         String[] options = {"Finalizar compra", "Cancelar compra", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 infoProductosCesta, "TPV", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, options, options[2]);
+                JOptionPane.PLAIN_MESSAGE, null, options, null);
 
         switch (opcionElegida) {
             case 0 -> {
@@ -235,8 +235,9 @@ public class UtilidadesTPV {
 
     private static void pasarelaPago(TPV tpv, double totalPagar) {
 
-        String digitosTarjeta = JOptionPane.showInputDialog(
-                "Introduce los últimos 4 dígitos de tu tarjeta");
+        String digitosTarjeta = JOptionPane.showInputDialog(null, 
+                "Introduce los últimos 4 dígitos de tu tarjeta", 
+                "TPV",  JOptionPane.OK_CANCEL_OPTION);
 
         if (UtilidadesTarjeta.numTarjetaValido(digitosTarjeta)) {
 
@@ -256,7 +257,7 @@ public class UtilidadesTPV {
                 try {
 
                     option = JOptionPane.showConfirmDialog(null, message,
-                            "Introduce la fecha de caducidad y el CVV de tu tarjeta",
+                            "Introduce fecha de caducidad y CVV",
                             JOptionPane.OK_CANCEL_OPTION);
                     excepcion = false;
                 } catch (NumberFormatException nfe) {
