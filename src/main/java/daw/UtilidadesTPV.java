@@ -4,15 +4,11 @@
  */
 package daw;
 
-import java.awt.Color;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 /**
  *
@@ -245,6 +241,7 @@ public class UtilidadesTPV {
             JTextField anyo = new JTextField();
             JTextField cvv = new JTextField();
             Object[] message = {
+                "Introduce fecha de caducidad y CVV",
                 "Mes:", mes,
                 "Año:", anyo,
                 "CVV:", cvv
@@ -257,8 +254,7 @@ public class UtilidadesTPV {
                 try {
 
                     option = JOptionPane.showConfirmDialog(null, message,
-                            "Introduce fecha de caducidad y CVV",
-                            JOptionPane.OK_CANCEL_OPTION);
+                            "TPV",JOptionPane.OK_CANCEL_OPTION);
                     excepcion = false;
                 } catch (NumberFormatException nfe) {
 //                    String[] opciones = {"Aceptar"};
