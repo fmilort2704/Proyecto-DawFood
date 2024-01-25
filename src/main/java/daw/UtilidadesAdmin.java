@@ -4,6 +4,7 @@
  */
 package daw;
 
+import static daw.UtilidadesTPV.seleccionarSubcategoria;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class UtilidadesAdmin {
         
         switch(opcionElegida){
             case 0 ->{
-                
+                modificarProducto(tpv);
             }
             case 1 ->{
                 
@@ -74,9 +75,33 @@ public class UtilidadesAdmin {
                 
             }
             case 4 ->{
-                
+                UtilidadesTPV.seleccionarModo();
             }
         }
+    }
+    
+    private static void modificarProducto(TPV tpv){
+        
+        String opcionElegidaProducto = (String) JOptionPane.showInputDialog(null,
+                "Escoge un atributo para editarlo", "TPV", JOptionPane.QUESTION_MESSAGE,
+                null, tpv.getCartaProductos().toArray(), tpv.getCartaProductos().get(0));
+        
+        Object[] options = {"Descripcion", "Categoría",
+            "Subcategoría", "Precio" , "IVA", "Stock"};
+        
+        String opcionElegida = (String) JOptionPane.showInputDialog(null,
+                "Escoge un atributo para editarlo", "TPV", JOptionPane.QUESTION_MESSAGE,
+                null, options, options[0]);
+        
+        modificarAtributo(tpv, opcionElegida);
+
+        if (opcionElegida == null) {
+            modoMantenimiento(tpv);
+        }
+    }
+    
+    private static void modificarAtributo(TPV tpv, String atributo){
+        
         
         
     }
