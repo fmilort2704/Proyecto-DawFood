@@ -169,14 +169,23 @@ public class UtilidadesTPV {
                             + p.getDescripcion() + " Precio sin IVA: " + p.getPrecio()
                             + " Precio con IVA: %.2f".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
                     excepcion = false;
-                    if (numProductos > p.getStock()) {
-                        JOptionPane.showInputDialog(null, "No hay duficiente stock, prueba de nuevo");
-                    }
                 } catch (NumberFormatException nfe) {
                     String[] opciones = {"Aceptar"};
+
+                    JOptionPane.showOptionDialog(null,
+                            "Eso no es un número", "TPV", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+                }
+                if (numProductos > p.getStock()) {
+                    String[] opciones = {"Aceptar"};
+
+                    JOptionPane.showOptionDialog(null,
+                            "Sólo nos queda " + p.getStock() + " " + p.getDescripcion() 
+                                    + ", prueba de nuevo", "TPV", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 }
             } while (excepcion);
-        }while (numProductos > p.getStock());
+        } while (numProductos > p.getStock());
 
         p.setStock(Math.abs(numProductos));
         tpv.getCarrito().add(p);
@@ -294,7 +303,7 @@ public class UtilidadesTPV {
 
                             for (Producto p1 : tpv.getCarrito()) {
                                 for (Producto p2 : tpv.getCartaProductos()) {
-                                    if(p1.equals(p2)){
+                                    if (p1.equals(p2)) {
                                         p2.setStock(p2.getStock() - p1.getStock());
                                     }
                                 }

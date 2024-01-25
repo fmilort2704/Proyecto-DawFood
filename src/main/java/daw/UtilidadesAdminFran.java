@@ -122,7 +122,7 @@ public class UtilidadesAdminFran {
                 verPedidosDia(tpv.getBaseDatosTicket().get(0).getFechaOperacion(), tpv.getBaseDatosTicket());
             }
             case 1 -> {
-                verPedidosHastaFecha(LocalDate.now(),tpv.
+                //verPedidosHastaFecha(LocalDate.now(),tpv.
             }
             case 2 -> {
 
