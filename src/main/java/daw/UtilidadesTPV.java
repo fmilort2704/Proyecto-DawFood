@@ -166,6 +166,7 @@ public class UtilidadesTPV {
                             + p.getDescripcion() + " Precio sin IVA: " + p.getPrecio()
                             + " Precio con IVA: %.2f".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
                     excepcion = false;
+
                 } catch (NumberFormatException nfe) {
                     String[] opciones = {"Aceptar"};
 
