@@ -170,7 +170,7 @@ public class UtilidadesTPV {
                             + " Precio con IVA: %.2f".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
                     excepcion = false;
                     if (numProductos > p.getStock()) {
-                        JOptionPane.showInputDialog(null, "No hay duficiente stock, prueba de nuevo");
+                        JOptionPane.showMessageDialog(null, "No hay duficiente stock, prueba de nuevo");
                     }
                 } catch (NumberFormatException nfe) {
                     String[] opciones = {"Aceptar"};
