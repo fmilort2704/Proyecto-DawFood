@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -68,10 +69,9 @@ public class UtilidadesAdminFran {
 
             }
             case 2 -> {
-
             }
             case 3 -> {
-                
+                consultarVentas(tpv);
             }
             case 4 -> {
 
@@ -81,33 +81,41 @@ public class UtilidadesAdminFran {
     }
 
     //Ver los pedidos de la lista entera de ticket durente el dia de hoy
-    public static void verPedidosDia(LocalDate dia, ArrayList<Ticket> listaTicket) {
-        JOptionPane.showInputDialog("Los ticket de hoy son:");
+    public static void verPedidosDia(LocalDate dia, ArrayList<Ticket> listaTicket, TPV tpv) {
         ArrayList<Ticket> listaTicketHoy = new ArrayList<>();
         for (int i = 0; i < listaTicket.size(); i++) {
             if (listaTicket.get(i).getFechaOperacion().isEqual(dia)) {
                 listaTicketHoy.add(listaTicket.get(i));
             }
         }
-        for (Ticket ticket : listaTicketHoy) {
-            JOptionPane.showInputDialog("- " + ticket);
+        if (!(tpv.getBaseDatosTicket().isEmpty())) {
+            Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
+                    "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+                    null, listaTicketHoy.toArray(),
+                    listaTicketHoy.get(0));
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ventas en el dia de hoy todavia");
         }
-
     }
 
     //Ver los pedidos de la lista entera de ticket hasta una fecha concreta
-    public static void verPedidosHastaFecha(LocalDate diaLimite, ArrayList<Ticket> listaTicket) {
+    public static void verPedidosHastaFecha(LocalDate diaLimite, ArrayList<Ticket> listaTicket, TPV tpv) {
         ArrayList<Ticket> listaTicketFechaConcreta = new ArrayList<>();
-        JOptionPane.showInputDialog("Los tickets hasta este dia son:");
         for (int i = 0; i < listaTicket.size(); i++) {
-            if (listaTicket.get(i).getFechaOperacion().isBefore(diaLimite)) {
+            if (listaTicket.get(i).getFechaOperacion().isBefore(diaLimite)
+                    || listaTicket.get(i).getFechaOperacion().isEqual(diaLimite)) {
                 listaTicketFechaConcreta.add(listaTicket.get(i));
             }
+        }
+        if (!(tpv.getBaseDatosTicket().isEmpty())) {
+            Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
+                    "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+                    null, listaTicketFechaConcreta.toArray(),
+                    listaTicketFechaConcreta.get(0));
+        } else {
+            JOptionPane.showMessageDialog(null, "Hasta esa fecha no hay ventas registradas");
+        }
 
-        }
-        for (Ticket ticket : listaTicketFechaConcreta) {
-            JOptionPane.showInputDialog("- " + ticket);
-        }
     }
 
     public static void consultarVentas(TPV tpv) {
@@ -115,19 +123,74 @@ public class UtilidadesAdminFran {
             "Todas la ventas registada"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Consultar las ventas", "TPV", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[3]);
+                JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[2]);
         tpv.getBaseDatosTicket();
         switch (opcionElegida) {
             case 0 -> {
-                verPedidosDia(tpv.getBaseDatosTicket().get(0).getFechaOperacion(), tpv.getBaseDatosTicket());
+                JTextField mes = new JTextField();
+                JTextField anyo = new JTextField();
+                JTextField dia = new JTextField();
+                Object[] message = {
+                    "Introduce la fecha concreta",
+                    "Dia:", dia,
+                    "Mes:", mes,
+                    "Año:", anyo,};
+
+                int option = 0;
+
+                option = JOptionPane.showConfirmDialog(null, message,
+                        "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+
+                    LocalDate fechaDia = LocalDate.MIN;
+
+                    verPedidosDia(fechaDia, tpv.getBaseDatosTicket(), tpv);
+                }
             }
             case 1 -> {
+                JTextField mes = new JTextField();
+                JTextField anyo = new JTextField();
+                JTextField dia = new JTextField();
+                Object[] message = {
+                    "Introduce la fecha concreta",
+                    "Dia:", dia,
+                    "Mes:", mes,
+                    "Año:", anyo,};
+
+                int option = 0;
+
+                option = JOptionPane.showConfirmDialog(null, message,
+                        "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+
+                    LocalDate fechaDia = LocalDate.MIN;
+                    verPedidosHastaFecha(fechaDia, tpv.getBaseDatosTicket(), tpv);
+                }
             }
             case 2 -> {
+                tpv.getBaseDatosTicket();
+                if (!(tpv.getBaseDatosTicket().isEmpty())) {
+                    Ticket TodasLasVentas = (Ticket) JOptionPane.showInputDialog(null,
+                            "Consultar las ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+                            null, tpv.getBaseDatosTicket().toArray(),
+                            tpv.getBaseDatosTicket().get(0));
+                }else {
+                    JOptionPane.showMessageDialog(null, "No hay ventas registradas en la base de datos");
+                }
 
             }
-
         }
     }
 
+    public static LocalDate pedirDia(int dia, int mes, int anyo) {
+        LocalDate fecha = LocalDate.MIN;
+
+        if (((mes >= LocalDate.MIN.getMonthValue() && mes <= LocalDate.MAX.getMonthValue())
+                && (anyo >= LocalDate.MIN.getYear() && anyo <= LocalDate.MAX.getYear())
+                && (dia >= LocalDate.MIN.getDayOfYear() && dia <= LocalDate.MAX.getDayOfYear()))) {
+            fecha = LocalDate.of(anyo, mes, dia);
+        }
+
+        return fecha;
+    }
 }

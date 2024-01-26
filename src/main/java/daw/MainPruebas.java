@@ -79,6 +79,8 @@ public class MainPruebas {
 //
 //
 //        }
+TPV tpv1 = new TPV("Estepona");
+        tpv1.encenderTPV();
 
     }
 }
