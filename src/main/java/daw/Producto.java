@@ -124,15 +124,13 @@ public class Producto {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Producto{");
-        sb.append("ID=").append(ID);
-        sb.append(", categoria=").append(categoria);
-        sb.append(", subcategoria=").append(subcategoria);
-        sb.append(", descripcion=").append(descripcion);
-        sb.append(", precio=").append(precio);
-        sb.append(", IVA=").append(IVA);
-        sb.append(", stock=").append(stock);
-        sb.append('}');
+        sb.append("ID: ").append(ID);
+        sb.append(", categoria: ").append(categoria);
+        sb.append(", subcategoria: ").append(subcategoria);
+        sb.append(", descripcion: ").append(descripcion);
+        sb.append(", precio: ").append(precio);
+        sb.append(", IVA: ").append(IVA);
+        sb.append(", stock: ").append(stock);
         return sb.toString();
     }
 

@@ -6,6 +6,7 @@ package daw;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -14,6 +15,16 @@ import javax.swing.JTextField;
  * @author francisco
  */
 public class UtilidadesAdmin {
+    
+    public static boolean pedirPassword(){
+        
+        boolean paswordValida = false;
+        
+        
+        
+        
+        return paswordValida;
+    }
 
     public static void modoMantenimiento(TPV tpv) {
 
@@ -26,6 +37,9 @@ public class UtilidadesAdmin {
         switch (opcionElegida) {
             case 0 -> {
                 modificarProducto(tpv);
+                for (Producto p : tpv.getCartaProductos()) {
+                    System.out.println(p);
+                }
             }
             case 1 -> {
                 tpv.getCartaProductos().add(nuevoProducto(tpv));
@@ -40,7 +54,7 @@ public class UtilidadesAdmin {
                         null, tpv.getCartaProductos().toArray(),
                         tpv.getCartaProductos().get(0));
                 for (Producto p : tpv.getCartaProductos()) {
-                    if(opcionElegidaProducto.equals(p)){
+                    if (opcionElegidaProducto.equals(p)) {
                         tpv.getCartaProductos().remove(p);
                     }
                 }
@@ -108,22 +122,52 @@ public class UtilidadesAdmin {
             }
 
             if (!precio.getText().equals("")) {
-                opcionElegidaProducto.setPrecio(Double.parseDouble(precio.getText()));
-                atributosCambiados += "Precio, ";
+
+                try {
+                    opcionElegidaProducto.setPrecio(Double.parseDouble(precio.getText()));
+                    atributosCambiados += "Precio, ";
+                } catch (NumberFormatException nfe) {
+                    String[] opciones = {"Aceptar"};
+
+                    JOptionPane.showOptionDialog(null,
+                            "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                            opciones, opciones[0]);
+                }
             }
 
             if (!iva.getText().equals("")) {
                 for (IVA iv : IVA.values()) {
                     if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
-                        opcionElegidaProducto.setIVA(iv);
-                        atributosCambiados += "IVA, ";
+
+                        try {
+                            opcionElegidaProducto.setIVA(iv);
+                            atributosCambiados += "IVA, ";
+                        } catch (NumberFormatException nfe) {
+                            String[] opciones = {"Aceptar"};
+
+                            JOptionPane.showOptionDialog(null,
+                                    "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                                    opciones, opciones[0]);
+                        }
                     }
                 }
             }
 
             if (!stock.getText().equals("")) {
-                opcionElegidaProducto.setPrecio(Integer.parseInt(stock.getText()));
-                atributosCambiados += "Stock";
+
+                try {
+                    opcionElegidaProducto.setStock(Integer.parseInt(stock.getText()));
+                    atributosCambiados += "Stock";
+                } catch (NumberFormatException nfe) {
+                    String[] opciones = {"Aceptar"};
+
+                    JOptionPane.showOptionDialog(null,
+                            "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                            opciones, opciones[0]);
+                }
             }
 
             String[] opciones = {"Aceptar"};
@@ -168,26 +212,35 @@ public class UtilidadesAdmin {
         if (option == JOptionPane.OK_OPTION) {
 
             producto.setDescripcion(descrip.getText());
-            producto.setPrecio(Double.parseDouble(precio.getText()));
-            producto.setStock(Integer.parseInt(stock.getText()));
+//            try {
+                producto.setPrecio(Double.parseDouble(precio.getText()));
+                producto.setStock(Integer.parseInt(stock.getText()));
 
-            for (Categoria c : Categoria.values()) {
-                if (categ.getText().equalsIgnoreCase(c.getCATEGORIA())) {
-                    producto.setCategoria(c);
+                for (Categoria c : Categoria.values()) {
+                    if (categ.getText().equalsIgnoreCase(c.getCATEGORIA())) {
+                        producto.setCategoria(c);
+                    }
                 }
-            }
 
-            for (Subcategoria s : Subcategoria.values()) {
-                if (subcat.getText().equalsIgnoreCase(s.getSUBCATEGORIA())) {
-                    producto.setSubcategoria(s);
+                for (Subcategoria s : Subcategoria.values()) {
+                    if (subcat.getText().equalsIgnoreCase(s.getSUBCATEGORIA())) {
+                        producto.setSubcategoria(s);
+                    }
                 }
-            }
 
-            for (IVA iv : IVA.values()) {
-                if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
-                    producto.setIVA(iv);
+                for (IVA iv : IVA.values()) {
+                    if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
+                        producto.setIVA(iv);
+                    }
                 }
-            }
+//            } catch (NumberFormatException nfe) {
+//                String[] opciones = {"Aceptar"};
+//
+//                JOptionPane.showOptionDialog(null,
+//                        "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+//                        JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+//                        opciones, opciones[0]);
+//            }
 
         } else {
             modoMantenimiento(tpv);
