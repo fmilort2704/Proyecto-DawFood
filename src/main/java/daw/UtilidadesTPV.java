@@ -55,7 +55,7 @@ public class UtilidadesTPV {
     }
 
     public static int seleccionarModo() {
- 
+
         String[] opciones = {"Administrador", "Usuario"};
 
         int opcionUsuario = JOptionPane.showOptionDialog(null,
@@ -172,23 +172,30 @@ public class UtilidadesTPV {
 
                     JOptionPane.showOptionDialog(null,
                             "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), 
+                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
                             opciones, opciones[0]);
                 }
                 if (numProductos > p.getStock()) {
                     String[] opciones = {"Aceptar"};
 
                     JOptionPane.showOptionDialog(null,
-                            "Sólo nos queda " + p.getStock() + " " + p.getDescripcion() 
-                                    + ", prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), 
+                            "Sólo nos queda " + p.getStock() + " " + p.getDescripcion()
+                            + ", prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
                             opciones, opciones[0]);
                 }
             } while (excepcion);
         } while (numProductos > p.getStock());
 
-        p.setStock(Math.abs(numProductos));
-        tpv.getCarrito().add(p);
+        for (Producto pCarrito : tpv.getCarrito()) {
+            if (p.equals(pCarrito)) {
+                pCarrito.setStock(pCarrito.getStock() + Math.abs(numProductos));
+            } else {
+                p.setStock(Math.abs(numProductos));
+                tpv.getCarrito().add(p);
+            }
+        }
+
     }
 
     private static void verCesta(TPV tpv) {
@@ -216,7 +223,7 @@ public class UtilidadesTPV {
         String[] options = {"Finalizar compra", "Cancelar compra", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 infoProductosCesta, "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), 
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
                 options, null);
 
         switch (opcionElegida) {
@@ -235,11 +242,11 @@ public class UtilidadesTPV {
     }
 
     private static void pasarelaPago(TPV tpv, double totalPagar) {
-        
-        String digitosTarjeta = (String) JOptionPane.showInputDialog(null, 
-                "Introduce los últimos 4 dígitos de tu tarjeta", 
-                "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION, 
-                new ImageIcon("src/main/java/iconos/poke1.png"), 
+
+        String digitosTarjeta = (String) JOptionPane.showInputDialog(null,
+                "Introduce los últimos 4 dígitos de tu tarjeta",
+                "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION,
+                new ImageIcon("src/main/java/iconos/poke1.png"),
                 null, null);
 
         if (UtilidadesTarjeta.numTarjetaValido(digitosTarjeta)) {
@@ -261,7 +268,7 @@ public class UtilidadesTPV {
                 try {
 
                     option = JOptionPane.showConfirmDialog(null, message,
-                            "TPV - Poke Zen",JOptionPane.OK_CANCEL_OPTION);
+                            "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
                     excepcion = false;
                 } catch (NumberFormatException nfe) {
 //                    String[] opciones = {"Aceptar"};
@@ -323,7 +330,7 @@ public class UtilidadesTPV {
 
                             JOptionPane.showOptionDialog(null,
                                     t, "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
                                     opciones, opciones[0]);
                             seleccionarCategoría(tpv);
 
@@ -332,7 +339,7 @@ public class UtilidadesTPV {
 
                             JOptionPane.showOptionDialog(null,
                                     "No hay saldo suficiente, prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
                                     opciones, opciones[0]);
                             verCesta(tpv);
                         }
@@ -341,7 +348,7 @@ public class UtilidadesTPV {
 
                         JOptionPane.showOptionDialog(null,
                                 "Los datos no son correctos", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
                                 opciones, opciones[0]);
                         verCesta(tpv);
                     }
@@ -356,7 +363,7 @@ public class UtilidadesTPV {
 
             int opcionUsuario = JOptionPane.showOptionDialog(null,
                     "Los digitos no son correctos", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
                     opciones, opciones[0]);
 
             if (opcionUsuario == 0) {

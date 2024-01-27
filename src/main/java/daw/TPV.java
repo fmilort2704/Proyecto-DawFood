@@ -29,7 +29,7 @@ public class TPV {
         this.ID = UUID.randomUUID();
         this.fechaHoraSistema = LocalDateTime.now();
         this.direccion = direccion;
-        this.password = crearPassword();
+        this.password = UtilidadesAdmin.crearPassword();
         this.cartaProductos = UtilidadesTPV.listaProductos();
         this.carrito = new ArrayList<>();
         this.baseDatosTicket = new ArrayList<>();
@@ -83,6 +83,10 @@ public class TPV {
         this.direccion = direccion;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -94,16 +98,9 @@ public class TPV {
         return sb.toString();
     }
 
-    private String crearPassword() {
-        return RandomStringUtils.randomAlphabetic(3).toLowerCase()
-                + RandomStringUtils.randomAlphabetic(1).toUpperCase()
-                + RandomStringUtils.randomNumeric(1)
-                + RandomStringUtils.random(1, "#$%&()*+,-.:;<=>@");
-    }
-
     public void encenderTPV() {
 
-        System.out.println("Contraseña Admin: " + crearPassword());
+        System.out.println("Contraseña Admin: " + this.password);
 
         UIManager.put("OptionPane.okButtonText", "Aceptar");
         UIManager.put("OptionPane.cancelButtonText", "Volver");
@@ -118,7 +115,13 @@ public class TPV {
                 UtilidadesTPV.seleccionarCategoría(this);
 
             } else {
-                UtilidadesAdmin.modoMantenimiento(this);
+                boolean passValida = UtilidadesAdmin.pedirPassword(this);
+                if(passValida){
+                    UtilidadesAdmin.modoMantenimiento(this);
+                }else{
+                    
+                }
+                
             }
         }
     }
