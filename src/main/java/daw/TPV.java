@@ -16,7 +16,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  * @author FX506
  */
 public class TPV {
-    
+
     private final UUID ID;
     private LocalDateTime fechaHoraSistema;
     private String direccion;
@@ -94,32 +94,33 @@ public class TPV {
         return sb.toString();
     }
 
-    private String crearPassword(){
+    private String crearPassword() {
         return RandomStringUtils.randomAlphabetic(3).toLowerCase()
                 + RandomStringUtils.randomAlphabetic(1).toUpperCase()
                 + RandomStringUtils.randomNumeric(1)
                 + RandomStringUtils.random(1, "#$%&()*+,-.:;<=>@");
     }
-    
-    public void encenderTPV(){
-        
+
+    public void encenderTPV() {
+
         System.out.println("Contraseña Admin: " + crearPassword());
-        
+
         UIManager.put("OptionPane.okButtonText", "Aceptar");
         UIManager.put("OptionPane.cancelButtonText", "Volver");
         UIManager.put("OptionPane.background", new Color(147, 217, 196));
         UIManager.put("Panel.background", new Color(147, 217, 196));
         
-        int opcionModo = UtilidadesTPV.seleccionarModo();
-        
-        if(opcionModo == 1){
-            while(true){
+        while (true) {
+            int opcionModo = UtilidadesTPV.seleccionarModo();
+
+            if (opcionModo == 1) {
+
                 UtilidadesTPV.seleccionarCategoría(this);
-            }    
-        }else {
-            UtilidadesAdmin.modoMantenimiento(this);
+
+            } else {
+                UtilidadesAdmin.modoMantenimiento(this);
+            }
         }
-        
     }
-    
+
 }

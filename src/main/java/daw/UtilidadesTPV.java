@@ -60,7 +60,7 @@ public class UtilidadesTPV {
 
         int opcionUsuario = JOptionPane.showOptionDialog(null,
                 "Elige un modo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), opciones, opciones[0]);
+                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/user1.png"), opciones, opciones[0]);
 
         return opcionUsuario;
     }
@@ -71,7 +71,7 @@ public class UtilidadesTPV {
             Categoria.POSTRE, "Volver", "Ver cesta"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Escoge una categoría", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), options, options[3]);
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), options, options[3]);
 
         switch (opcionElegida) {
             case 0 -> {
@@ -103,7 +103,7 @@ public class UtilidadesTPV {
         Object[] options = {s1, s2, s3, "Volver", "Ver cesta"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Escoge una subcategoría", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), options, options[3]);
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), options, options[3]);
 
         switch (opcionElegida) {
             case 0 -> {
@@ -142,7 +142,7 @@ public class UtilidadesTPV {
 
         String opcionElegidaProducto = (String) JOptionPane.showInputDialog(null,
                 "Escoge un producto", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                new ImageIcon("src/main/java/iconos/poke3.png"), nombreProductosAMostrar.toArray(),
+                new ImageIcon("src/main/java/iconos/poke1.png"), nombreProductosAMostrar.toArray(),
                 nombreProductosAMostrar.get(0));
 
         if (opcionElegidaProducto == null) {
@@ -172,7 +172,7 @@ public class UtilidadesTPV {
 
                     JOptionPane.showOptionDialog(null,
                             "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), 
                             opciones, opciones[0]);
                 }
                 if (numProductos > p.getStock()) {
@@ -181,7 +181,7 @@ public class UtilidadesTPV {
                     JOptionPane.showOptionDialog(null,
                             "Sólo nos queda " + p.getStock() + " " + p.getDescripcion() 
                                     + ", prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), 
                             opciones, opciones[0]);
                 }
             } while (excepcion);
@@ -216,7 +216,7 @@ public class UtilidadesTPV {
         String[] options = {"Finalizar compra", "Cancelar compra", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 infoProductosCesta, "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"), 
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), 
                 options, null);
 
         switch (opcionElegida) {
@@ -239,7 +239,7 @@ public class UtilidadesTPV {
         String digitosTarjeta = (String) JOptionPane.showInputDialog(null, 
                 "Introduce los últimos 4 dígitos de tu tarjeta", 
                 "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION, 
-                new ImageIcon("src/main/java/iconos/poke3.png"), 
+                new ImageIcon("src/main/java/iconos/poke1.png"), 
                 null, null);
 
         if (UtilidadesTarjeta.numTarjetaValido(digitosTarjeta)) {
