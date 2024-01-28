@@ -38,6 +38,9 @@ public class UtilidadesTarjeta {
 
         for (int i = 0; i < baseDatosTarjeta.size(); i++) {
 
+            //Con los 4 dígitos que introduce el cliente busco 
+            //un numero de tarjeta que los tenga al final con substring,
+            //que divide el número en el rango que yo diga entre dos índices
             if (digitosCliente.equals(baseDatosTarjeta.get(i)
                     .getNumTarjeta()
                     .substring(baseDatosTarjeta.get(i).getNumTarjeta().length() - 4,
@@ -48,6 +51,7 @@ public class UtilidadesTarjeta {
         return false;
     }
 
+    //Este método es parecido al anterior, pero devuelve la tarjeta
     public static Tarjeta obtenerTarjetaCliente(String digitosCliente) {
         ArrayList<Tarjeta> baseDatosTarjeta = baseDatosTarjeta();
         Tarjeta tarjetaCliente = new Tarjeta();
@@ -77,9 +81,9 @@ public class UtilidadesTarjeta {
     public static boolean fechaCaducidadYCVVValidos(String digitosCliente, LocalDate fechaCaducidad, String CVV) {
         Tarjeta tarjetaCliente = obtenerTarjetaCliente(digitosCliente);
 
-        //comprobamos que la fecha introducida no esté pasada (caducada)
+        //comprobamos que la fecha introducida no esté caducada
         //y que la fecha introducida es la misma que está guardada
-        //en los datos de la tarjeta de nuestra base de datos
+        //en nuestra base de datos
         if (fechaCaducidad.isAfter(LocalDate.now())
                 && fechaCaducidad.equals(tarjetaCliente.getFechaVencimiento())) {
             //En este otro if al que sólo se llega si la fecha está bien

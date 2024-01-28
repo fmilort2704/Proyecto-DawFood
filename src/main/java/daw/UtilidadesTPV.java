@@ -56,7 +56,8 @@ public class UtilidadesTPV {
 
     public static int seleccionarModo() {
 
-        String[] opciones = {"Administrador", "Usuario"};
+        //Array que contiene los nombres de los botones del joption
+        String[] opciones = {"Administrador", "Usuario", "Apagar"};
 
         int opcionUsuario = JOptionPane.showOptionDialog(null,
                 "Elige un modo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
@@ -65,39 +66,52 @@ public class UtilidadesTPV {
         return opcionUsuario;
     }
 
-    public static void seleccionarCategoría(TPV tpv) {
+    public static boolean seleccionarCategoría(TPV tpv) {
 
         Object[] options = {Categoria.COMIDA, Categoria.BEBIDA,
             Categoria.POSTRE, "Volver", "Ver cesta"};
+
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Escoge una categoría", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), options, options[3]);
 
         switch (opcionElegida) {
             case 0 -> {
-
+                //Categoría comida
                 seleccionarSubcategoria(tpv, Subcategoria.POKE,
                         Subcategoria.WRAP, Subcategoria.LOCO_MOCO);
+                return true;
+                //He hecho que devuelva un booleano en todos los case para que 
+                //no haya problemas con el botón volver y repetir la pantalla como se debe.
+                //Lo uso en el método encender de la clase TPV
             }
             case 1 -> {
-
+                //Categoría bebida
                 seleccionarSubcategoria(tpv, Subcategoria.AGUA,
                         Subcategoria.CERVEZA, Subcategoria.REFRESCO);
+                return true;
             }
             case 2 -> {
-
+                //Categoría postre
                 seleccionarSubcategoria(tpv, Subcategoria.HELADO,
                         Subcategoria.FRUTA, Subcategoria.TARTA);
+                return true;
             }
             case 3 -> {
-                UtilidadesTPV.seleccionarModo();
+                //Botón volver
+                return false;
             }
             case 4 -> {
+
                 verCesta(tpv);
+                return true;
             }
         }
+        return true;
     }
 
+    //Le paso por parámetros 3 subcategorías para poder diferenciar de que categoría es 
+    //en el método seleccionarCategoría
     public static void seleccionarSubcategoria(TPV tpv, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
 
         Object[] options = {s1, s2, s3, "Volver", "Ver cesta"};
@@ -118,9 +132,6 @@ public class UtilidadesTPV {
 
                 seleccionarProducto(tpv, s3, s1, s2, s3);
             }
-            case 3 -> {
-                seleccionarCategoría(tpv);
-            }
             case 4 -> {
                 verCesta(tpv);
             }
@@ -128,10 +139,20 @@ public class UtilidadesTPV {
     }
 
     private static void seleccionarProducto(TPV tpv, Subcategoria subcat, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
+
+        //Obtenemos nuestra carta completa
         ArrayList<Producto> baseDatosProductos = tpv.getCartaProductos();
+
+        //Lista para guardar qué productos se van a mostrar dendiendo 
+        //de si hay stock, las categorías y subcategorías
         ArrayList<Producto> productosAMostrar = new ArrayList<>();
+
+        //Lista para mostrar sólo los nombres de los productos en el desplegable
         ArrayList<String> nombreProductosAMostrar = new ArrayList<>();
 
+        //Miramos que el stock de los productos no sea 0 o menor
+        //y que coincidan con la subcategoría escogida, 
+        //para añadirlos a las listas
         for (int i = 0; i < baseDatosProductos.size(); i++) {
             if (baseDatosProductos.get(i).getStock() > 0
                     && baseDatosProductos.get(i).getSubcategoria().equals(subcat)) {
@@ -145,85 +166,110 @@ public class UtilidadesTPV {
                 new ImageIcon("src/main/java/iconos/poke1.png"), nombreProductosAMostrar.toArray(),
                 nombreProductosAMostrar.get(0));
 
+        //Este if es por el botón volver de la pantalla de productos, que devuelve un null
         if (opcionElegidaProducto == null) {
             seleccionarSubcategoria(tpv, s1, s2, s3);
-        }
+        } else {
+            //Creo este producto para poder hacer una copia
+            //del que se escoja y trabajar con este
+            //No es alias, ya que utilizo un constructor para este fin
+            //en el for de abajo
+            Producto p = new Producto();
 
-        Producto p = new Producto();
-
-        for (int i = 0; i < productosAMostrar.size(); i++) {
-            if (opcionElegidaProducto.equals(productosAMostrar.get(i).getDescripcion())) {
-                p = new Producto(productosAMostrar.get(i));
+            for (int i = 0; i < productosAMostrar.size(); i++) {
+                if (opcionElegidaProducto.equals(productosAMostrar.get(i).getDescripcion())) {
+                    p = new Producto(productosAMostrar.get(i));
+                }
             }
-        }
 
-        int numProductos = 0;
-        boolean excepcion = true;
-        do {
-            do {
-                try {
-                    numProductos = Integer.parseInt(JOptionPane.showInputDialog("Información del producto \n"
-                            + p.getDescripcion() + " Precio sin IVA: " + p.getPrecio()
-                            + " Precio con IVA: %.2f".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
-                    excepcion = false;
+            //Variable que guarda la cantidad que se quiere de un producto
+            int numProductos = 0;
+            //Este booleano servirá por si salta una excepción que se repita la pantalla
+            boolean excepcion = true;
+            do {//Este do while hará que se repita la pantalla si la cantidad que se quiere excede al stock
+                do {
+                    try {
+                        numProductos = Integer.parseInt(JOptionPane.showInputDialog("Información del producto \n"
+                                + p.getDescripcion() + " Precio sin IVA: " + p.getPrecio()
+                                + " Precio con IVA: %.2f".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
+                        excepcion = false;
 
-                } catch (NumberFormatException nfe) {
-                    String[] opciones = {"Aceptar"};
+                    } catch (NumberFormatException nfe) {//Captura que se introduzca una letra
+                        String[] opciones = {"Aceptar"};
 
-                    JOptionPane.showOptionDialog(null,
-                            "Eso no es un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
-                            opciones, opciones[0]);
+                        JOptionPane.showOptionDialog(null,
+                                "Debes introducir un número", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
+                                opciones, opciones[0]);
+                    }
+                    //Se mostrará el mensaje si la cantidad introducida excede al stock
+                    if (numProductos > p.getStock()) {
+                        String[] opciones = {"Aceptar"};
+
+                        JOptionPane.showOptionDialog(null,
+                                "Sólo nos queda " + p.getStock() + " " + p.getDescripcion()
+                                + ", prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
+                                opciones, opciones[0]);
+                    }
+                } while (excepcion);
+            } while (numProductos > p.getStock());
+
+            //Comprobamos si ya se había guardado el producto escogido en la cesta anteriormente
+            //si es así, sólo se modifica el stock del productro en la cesta
+            boolean repetido = false;
+            for (Producto pCarrito : tpv.getCarrito()) {
+                if (p.equals(pCarrito)) {
+                    repetido = true;
+                    pCarrito.setStock(pCarrito.getStock() + Math.abs(numProductos));
                 }
-                if (numProductos > p.getStock()) {
-                    String[] opciones = {"Aceptar"};
+            }
 
-                    JOptionPane.showOptionDialog(null,
-                            "Sólo nos queda " + p.getStock() + " " + p.getDescripcion()
-                            + ", prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
-                            opciones, opciones[0]);
-                }
-            } while (excepcion);
-        } while (numProductos > p.getStock());
-
-        for (Producto pCarrito : tpv.getCarrito()) {
-            if (p.equals(pCarrito)) {
-                pCarrito.setStock(pCarrito.getStock() + Math.abs(numProductos));
-            } else {
-                p.setStock(Math.abs(numProductos));
+            //Si no estaba el producto en la cesta, se añade a esta
+            if (!repetido) {
+                //Primero se modifica el stock de la copia del producto
+                //para no añadir todo el stock existente
+                p.setStock(numProductos);
+                //Y finalmente se añade a la cesta
                 tpv.getCarrito().add(p);
             }
         }
-
     }
 
     private static void verCesta(TPV tpv) {
 
         double totalPagar = 0;
         double totalConIva = 0;
+
+        //En este string se irán añadiendo los nombres de los productos en la cesta,
+        //su precio y la cantadidad,
+        //también el precio total de la compra con iva y sin iva
         String infoProductosCesta = "PRODUCTOS EN LA CESTA \n \n";
 
         for (int i = 0; i < tpv.getCarrito().size(); i++) {
+            //añadimos nombres de productos (descripción) y cantidad (stock del carrito)
             infoProductosCesta += tpv.getCarrito().get(i).getDescripcion()
                     + "     Cant.: " + tpv.getCarrito().get(i).getStock()
                     + "     " + tpv.getCarrito().get(i).getPrecio() + "\n";
 
+            //se suman los precios
             totalPagar += tpv.getCarrito().get(i).getPrecio()
                     * tpv.getCarrito().get(i).getStock();
 
+            //se suman los precios y se le calcula el iva
             totalConIva += tpv.getCarrito().get(i).getPrecio()
                     * tpv.getCarrito().get(i).getIVA().getPORCENTAJE_IVA()
                     * tpv.getCarrito().get(i).getStock();
         }
 
+        //coloco los resultados de las operaciones anteriores y se suma al string
         infoProductosCesta += "\n" + "Total sin IVA: %.2f".formatted(totalPagar)
                 + "     Total con IVA: %.2f".formatted(totalConIva) + "\n";
 
         String[] options = {"Finalizar compra", "Cancelar compra", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 infoProductosCesta, "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"),
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/cesta1.png"),
                 options, null);
 
         switch (opcionElegida) {
@@ -234,9 +280,9 @@ public class UtilidadesTPV {
                 tpv.getCarrito().clear();
                 seleccionarModo();
             }
-            case 2 -> {
-                seleccionarCategoría(tpv);
-            }
+            //No necesito el case 2 (volver), ya que ya está organizado en
+            //el método encenderTPV, añadir algo aquí haría 
+            //que se abriera la ventana de categorías dos veces
         }
 
     }
@@ -246,11 +292,14 @@ public class UtilidadesTPV {
         String digitosTarjeta = (String) JOptionPane.showInputDialog(null,
                 "Introduce los últimos 4 dígitos de tu tarjeta",
                 "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION,
-                new ImageIcon("src/main/java/iconos/poke1.png"),
+                new ImageIcon("src/main/java/iconos/tarjeta1.png"),
                 null, null);
 
+        //Primero comprobamos si los digitos coinciden con alguna tarjeta 
+        //de la base de datos
         if (UtilidadesTarjeta.numTarjetaValido(digitosTarjeta)) {
 
+            //Pedimos en la misma pantalla la fecha de caducidad y cvv
             JTextField mes = new JTextField();
             JTextField anyo = new JTextField();
             JTextField cvv = new JTextField();
@@ -264,18 +313,13 @@ public class UtilidadesTPV {
             int option = 0;
             boolean excepcion = true;
 
-            do {
+            do {//Este do while es por si salta una excepción
                 try {
 
                     option = JOptionPane.showConfirmDialog(null, message,
                             "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
                     excepcion = false;
                 } catch (NumberFormatException nfe) {
-//                    String[] opciones = {"Aceptar"};
-//
-//                    JOptionPane.showOptionDialog(null,
-//                            "La fecha no es correcta", "TPV", JOptionPane.DEFAULT_OPTION,
-//                            JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 }
 
                 if (option == JOptionPane.OK_OPTION) {
@@ -291,17 +335,18 @@ public class UtilidadesTPV {
                         excepcion = false;
 
                     } catch (NumberFormatException nfe) {
-//                        String[] opciones = {"Aceptar"};
-//
-//                        JOptionPane.showOptionDialog(null,
-//                                "La fecha no es correcta", "TPV", JOptionPane.DEFAULT_OPTION,
-//                                JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                     }
 
+                    //Se comprueba que fecha y el cvv son válidos 
+                    //(son los que están guardados en la base de datos)
                     if (UtilidadesTarjeta.fechaCaducidadYCVVValidos(digitosTarjeta, fechaCaducidad, cvv.getText())) {
 
+                        //Lo siguiente es comprobar que hay saldo para pagar la suma del carrito
                         if (UtilidadesTarjeta.saldoSuficiente(digitosTarjeta, totalPagar)) {
+
                             for (int i = 0; i < UtilidadesTarjeta.baseDatosTarjeta().size(); i++) {
+
+                                //Si hay saldo, se procede a restar la suma del carrito al saldo de la tarjeta
                                 if (digitosTarjeta.equals(UtilidadesTarjeta.baseDatosTarjeta().get(i)
                                         .getNumTarjeta()
                                         .substring(UtilidadesTarjeta.baseDatosTarjeta().get(i).getNumTarjeta().length() - 4,
@@ -312,65 +357,58 @@ public class UtilidadesTPV {
                                 }
                             }
 
-                            for (Producto p1 : tpv.getCarrito()) {
-                                for (Producto p2 : tpv.getCartaProductos()) {
-                                    if (p1.equals(p2)) {
-                                        p2.setStock(p2.getStock() - p1.getStock());
+                            //También se resta la cantidad comprada al stock de la base de datos 
+                            for (Producto pCarrito : tpv.getCarrito()) {
+                                for (Producto pCarta : tpv.getCartaProductos()) {
+                                    if (pCarrito.equals(pCarta)) {
+                                        pCarta.setStock(pCarta.getStock() - pCarrito.getStock());
                                     }
                                 }
                             }
 
+                            //Creamos el ticket con los datos anteriores
                             Ticket t = new Ticket(new ArrayList<Producto>(tpv.getCarrito()),
                                     totalPagar, LocalDate.now(),
                                     LocalTime.now());
+                            //Se añade el ticket al listado del tpv
                             tpv.getBaseDatosTicket().add(t);
+                            //Se vacía la cesta
                             tpv.getCarrito().clear();
 
                             String[] opciones = {"Aceptar"};
 
+                            //Se muestra el ticket de compra
                             JOptionPane.showOptionDialog(null,
                                     t, "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/tarjeta1.png"),
                                     opciones, opciones[0]);
-                            seleccionarCategoría(tpv);
 
                         } else {
                             String[] opciones = {"Aceptar"};
 
                             JOptionPane.showOptionDialog(null,
                                     "No hay saldo suficiente, prueba de nuevo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/tarjeta1.png"),
                                     opciones, opciones[0]);
-                            verCesta(tpv);
                         }
                     } else {
                         String[] opciones = {"Aceptar"};
 
                         JOptionPane.showOptionDialog(null,
                                 "Los datos no son correctos", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/tarjeta1.png"),
                                 opciones, opciones[0]);
-                        verCesta(tpv);
                     }
-
-                } else {
-                    System.out.println("Login canceled");
                 }
             } while (excepcion);
 
         } else {
-            String[] opciones = {"Volver a intentar", "Cancelar pago"};
+            String[] opciones = {"Aceptar"};
 
-            int opcionUsuario = JOptionPane.showOptionDialog(null,
+            JOptionPane.showOptionDialog(null,
                     "Los digitos no son correctos", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/poke3.png"),
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/tarjeta1.png"),
                     opciones, opciones[0]);
-
-            if (opcionUsuario == 0) {
-                pasarelaPago(tpv, totalPagar);
-            } else {
-                verCesta(tpv);
-            }
         }
     }
 }

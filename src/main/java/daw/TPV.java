@@ -8,8 +8,9 @@ import java.awt.Color;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
@@ -106,24 +107,48 @@ public class TPV {
         UIManager.put("OptionPane.cancelButtonText", "Volver");
         UIManager.put("OptionPane.background", new Color(147, 217, 196));
         UIManager.put("Panel.background", new Color(147, 217, 196));
-        
-        while (true) {
-            int opcionModo = UtilidadesTPV.seleccionarModo();
 
-            if (opcionModo == 1) {
-
-                UtilidadesTPV.seleccionarCategoría(this);
-
-            } else {
-                boolean passValida = UtilidadesAdmin.pedirPassword(this);
-                if(passValida){
-                    UtilidadesAdmin.modoMantenimiento(this);
-                }else{
-                    
-                }
-                
+        boolean encendido = true;
+            boolean usuario = false;
+        do {
+            int opcionModo;
+            
+            if(usuario){
+                opcionModo = 1;
+            }else{
+                opcionModo = UtilidadesTPV.seleccionarModo();
             }
-        }
+
+            switch (opcionModo) {
+                case 0 -> {
+                    boolean passValida;
+                    usuario = false;
+                    do {
+                        passValida = UtilidadesAdmin.pedirPassword(this);
+
+                        if (passValida) {
+                            UtilidadesAdmin.modoMantenimiento(this);
+
+                        } else {
+                            String[] opciones = {"Aceptar"};
+
+                            JOptionPane.showOptionDialog(null,
+                                    "La contraseña no es correcta, vuelve a intentar", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
+                                    opciones, opciones[0]);
+                        }
+                    } while (!passValida);
+                }
+                case 1 -> {
+                    
+                    usuario = UtilidadesTPV.seleccionarCategoría(this);
+                }
+                case 2 -> {
+                    usuario = false;
+                    encendido = false;
+                }
+            }
+        } while (encendido);
     }
 
 }
