@@ -5,7 +5,6 @@
 package daw;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,7 +20,7 @@ public class UtilidadesTPV {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         listaProductos.add(new Producto("Poke de pollo", Categoria.COMIDA,
                 Subcategoria.POKE, 11.99, IVA.IVA_DIEZ, 10));
-        listaProductos.add(new Producto("Poke de verdura", Categoria.COMIDA,
+        listaProductos.add(new Producto("Poke de salmón", Categoria.COMIDA,
                 Subcategoria.POKE, 12.59, IVA.IVA_DIEZ, 14));
         listaProductos.add(new Producto("Wrap de pollo", Categoria.COMIDA,
                 Subcategoria.WRAP, 13.35, IVA.IVA_DIEZ, 23));
@@ -33,23 +32,29 @@ public class UtilidadesTPV {
                 Subcategoria.LOCO_MOCO, 10.99, IVA.IVA_DIEZ, 2));
         listaProductos.add(new Producto("Agua", Categoria.BEBIDA,
                 Subcategoria.AGUA, 1.20, IVA.IVA_DIEZ, 54));
-        listaProductos.add(new Producto("Cerveza", Categoria.BEBIDA,
+        listaProductos.add(new Producto("Agua con gas", Categoria.BEBIDA,
+                Subcategoria.AGUA, 1.50, IVA.IVA_DIEZ, 30));
+        listaProductos.add(new Producto("Cerveza Victoria", Categoria.BEBIDA,
                 Subcategoria.CERVEZA, 2.55, IVA.IVA_VETIUNO, 42));
+        listaProductos.add(new Producto("Cerveza Mahou", Categoria.BEBIDA,
+                Subcategoria.CERVEZA, 2.55, IVA.IVA_VETIUNO, 32));
         listaProductos.add(new Producto("Coca Cola", Categoria.BEBIDA,
-                Subcategoria.REFRESCO, 2.55, IVA.IVA_VETIUNO, 45));
+                Subcategoria.REFRESCO, 2.55, IVA.IVA_DIEZ, 45));
         listaProductos.add(new Producto("Nestea", Categoria.BEBIDA,
-                Subcategoria.REFRESCO, 2.55, IVA.IVA_VETIUNO, 42));
+                Subcategoria.REFRESCO, 2.55, IVA.IVA_DIEZ, 42));
+        listaProductos.add(new Producto("Fanta limón", Categoria.BEBIDA,
+                Subcategoria.REFRESCO, 2.55, IVA.IVA_DIEZ, 42));
         listaProductos.add(new Producto("Helado de chocolate", Categoria.POSTRE,
                 Subcategoria.HELADO, 2.45, IVA.IVA_DIEZ, 40));
         listaProductos.add(new Producto("Helado de vainilla", Categoria.POSTRE,
                 Subcategoria.HELADO, 2.45, IVA.IVA_DIEZ, 37));
-        listaProductos.add(new Producto("Platano", Categoria.POSTRE,
-                Subcategoria.FRUTA, 1.99, IVA.IVA_DIEZ, 45));
-        listaProductos.add(new Producto("Manzana", Categoria.POSTRE,
-                Subcategoria.FRUTA, 1.99, IVA.IVA_DIEZ, 42));
+        listaProductos.add(new Producto("Bowl frutas del bosque", Categoria.POSTRE,
+                Subcategoria.FRUTA, 3.90, IVA.IVA_DIEZ, 45));
+        listaProductos.add(new Producto("Fruta mixta", Categoria.POSTRE,
+                Subcategoria.FRUTA, 2.90, IVA.IVA_DIEZ, 42));
         listaProductos.add(new Producto("Tarta de chocolate", Categoria.POSTRE,
                 Subcategoria.TARTA, 4.59, IVA.IVA_DIEZ, 33));
-        listaProductos.add(new Producto("Tarta de fresa", Categoria.POSTRE,
+        listaProductos.add(new Producto("Tarta de queso", Categoria.POSTRE,
                 Subcategoria.TARTA, 4.59, IVA.IVA_DIEZ, 34));
         return listaProductos;
     }
@@ -124,20 +129,18 @@ public class UtilidadesTPV {
                 "Escoge una subcategoría", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, icono, options, options[3]);
 
-        
-        
         switch (opcionElegida) {
             case 0 -> {
                 
-                seleccionarProducto(tpv, s1, s1, s2, s3, icono);
+                seleccionarProducto(tpv, s1, icono);
             }
             case 1 -> {
 
-                seleccionarProducto(tpv, s2, s1, s2, s3, icono);
+                seleccionarProducto(tpv, s2, icono);
             }
             case 2 -> {
 
-                seleccionarProducto(tpv, s3, s1, s2, s3, icono);
+                seleccionarProducto(tpv, s3, icono);
             }
             case 4 -> {
                 verCesta(tpv);
@@ -145,7 +148,7 @@ public class UtilidadesTPV {
         }
     }
 
-    private static void seleccionarProducto(TPV tpv, Subcategoria subcat, Subcategoria s1, Subcategoria s2, Subcategoria s3, ImageIcon icono) {
+    private static void seleccionarProducto(TPV tpv, Subcategoria subcat, ImageIcon icono) {
 
         //Obtenemos nuestra carta completa
         ArrayList<Producto> baseDatosProductos = tpv.getCartaProductos();
@@ -175,7 +178,10 @@ public class UtilidadesTPV {
 
         //Este if es por el botón volver de la pantalla de productos, que devuelve un null
         if (opcionElegidaProducto == null) {
-            seleccionarSubcategoria(tpv, s1, s2, s3, icono);
+            //Botón volver
+            //No hace falta que ponga nada aquí para que vaya atrás
+            //Si lo quito, salta nullpointerexception, y tendría que colocar
+            //unos cuantos try catch
         } else {
             //Creo este producto para poder hacer una copia
             //del que se escoja y trabajar con este
@@ -343,8 +349,7 @@ public class UtilidadesTPV {
                                         Integer.parseInt(anyo.getText()));
                         excepcion = false;
 
-                    } catch (NumberFormatException nfe) {
-                    }
+                    } catch (NumberFormatException nfe) {}
 
                     //Se comprueba que fecha y el cvv son válidos 
                     //(son los que están guardados en la base de datos)

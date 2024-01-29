@@ -103,12 +103,17 @@ public class TPV {
 
         boolean encendido = true;
         boolean usuario = false;
+        boolean admin = false;
 
         do {//Do while que controla el apagado del tpv
             int opcionModo;
 
-            //Se encarga de volver al seleccionarModo
-            if (usuario) {
+            //Este if see encarga de volver a seleccionarModo, 
+            //seleccionar Cartegoría o modo mantenimiento
+            //cuando estás dentro de una de las dos opciones
+            if (admin) {
+                opcionModo = 0;
+            } else if (usuario) {
                 opcionModo = 1;
             } else {
                 opcionModo = UtilidadesTPV.seleccionarModo();
@@ -118,21 +123,26 @@ public class TPV {
                 case 0 -> {
                     usuario = false;
 
-                    if (UtilidadesAdmin.pedirPassword(this)) {
-                        
-                        UtilidadesAdmin.modoMantenimiento(this);
-
+                    if (admin) {
+                        admin = UtilidadesAdmin.modoMantenimiento(this);
                     } else {
-                        String[] opciones = {"Aceptar"};
+                        if (UtilidadesAdmin.pedirPassword(this)) {
 
-                        JOptionPane.showOptionDialog(null,
-                                "La contraseña no es correcta, vuelve a intentar", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
-                                opciones, opciones[0]);
+                            admin = UtilidadesAdmin.modoMantenimiento(this);
+                        } else {
+                            String[] opciones = {"Aceptar"};
+
+                            JOptionPane.showOptionDialog(null,
+                                    "La contraseña no es correcta, vuelve a intentar",
+                                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    new ImageIcon("src/main/java/iconos/admin1.png"),
+                                    opciones, opciones[0]);
+                        }
                     }
                 }
                 case 1 -> {
-
+                    admin = false;
                     usuario = UtilidadesTPV.seleccionarCategoría(this);
                 }
                 case 2 -> {

@@ -4,8 +4,6 @@
  */
 package daw;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -34,7 +32,8 @@ public class UtilidadesAdmin {
                 null, null);
 
         if (password == null) {
-            UtilidadesTPV.seleccionarModo();
+            //Volver
+            //No hace falta que ponga nada aquí para que vaya atrás
         } else {
             try {
                 if (password.equals(tpv.getPassword())) {
@@ -47,7 +46,7 @@ public class UtilidadesAdmin {
         return false;
     }
 
-    public static void modoMantenimiento(TPV tpv) {
+    public static boolean modoMantenimiento(TPV tpv) {
 
         Object[] options = {"Editar producto", "Nuevo producto",
             "Borrar producto", "Consultar ventas", "Volver"};
@@ -58,9 +57,11 @@ public class UtilidadesAdmin {
         switch (opcionElegida) {
             case 0 -> {
                 modificarProducto(tpv);
+                return true;
             }
             case 1 -> {
                 tpv.getCartaProductos().add(nuevoProducto(tpv));
+                return true;
             }
             case 2 -> {
                 Producto opcionElegidaProducto = (Producto) JOptionPane.showInputDialog(null,
@@ -84,23 +85,35 @@ public class UtilidadesAdmin {
                     }
                     tpv.getCartaProductos().remove(indice);
                 }
+                return true;
             }
             case 3 -> {
                 consultarVentas(tpv);
+                return true;
             }
-            //No necesito el case 4 (volver)
+            case 4 -> {
+                //Botón volver
+                return false;
+            }
         }
+        return true;
     }
 
     private static void modificarProducto(TPV tpv) {
 
         Producto opcionElegidaProducto = (Producto) JOptionPane.showInputDialog(null,
-                "Escoge el producto a editar", "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION,
-                new ImageIcon("src/main/java/iconos/admin1.png"), tpv.getCartaProductos().toArray(),
+                "Escoge el producto a editar", "TPV - Poke Zen",
+                JOptionPane.OK_CANCEL_OPTION,
+                new ImageIcon("src/main/java/iconos/admin1.png"),
+                tpv.getCartaProductos().toArray(),
                 tpv.getCartaProductos().get(0));
 
         if (opcionElegidaProducto == null) {
-            modoMantenimiento(tpv);
+            //Botón volver
+            //No hace falta que ponga nada aquí para que vaya atrás
+            //Si quito este if, aunque no salta el nullpointer,
+            //no iría a la pantalla anterior, 
+            //seguiría avanzando a la siguiente (pantalla de introducir datos)
         } else {
 
             //Se pide todo en la misma ventana
@@ -130,12 +143,12 @@ public class UtilidadesAdmin {
                 //En este string se irá guardándo el atributo que se cambie satisfactoriamente
                 //para mostrarlo en un mensaje al final
                 String atributosCambiados = "";
+                String atributosError = "";
 
                 boolean error = false;
 
                 //Para que se realice un cambio el campo no estará vacío ni tendrá un espacio
                 if (!precio.getText().trim().equals("")) {
-
                     try {
                         opcionElegidaProducto.setPrecio(Double.parseDouble(precio.getText()));
                         //Esto se ñadirá a un string para saber si 
@@ -143,48 +156,36 @@ public class UtilidadesAdmin {
                         atributosCambiados += "Precio, ";
                     } catch (NumberFormatException nfe) {
                         error = true;
-                        String[] opciones = {"Aceptar"};
-
-                        JOptionPane.showOptionDialog(null,
-                                "Debes utilizar números en los campos de Precio, IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
-                                opciones, opciones[0]);
+                        atributosError = "Precio, ";
                     }
-                    //He anidado los ifs para que si hay algún error no muestre más mensajes de error
-                    //tampoco se realizará ningún cambio al saltar un error
-                    if (!iva.getText().trim().equals("") && !error) {
-                        for (IVA iv : IVA.values()) {
+
+                }
+
+                //Si ocurre algún error no entrará en los if de los
+                //siguientes atributos, y no se cambiará ningún dato
+                if (!iva.getText().trim().equals("") && !error) {
+                    for (IVA iv : IVA.values()) {
+                        try {
                             if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
 
-                                try {
-                                    opcionElegidaProducto.setIVA(iv);
-                                    atributosCambiados += "IVA, ";
-                                } catch (NumberFormatException nfe) {
-                                    error = true;
-                                    String[] opciones = {"Aceptar"};
-
-                                    JOptionPane.showOptionDialog(null,
-                                            "Debes utilizar números en los campos de Precio, IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
-                                            opciones, opciones[0]);
-                                }
+                                opcionElegidaProducto.setIVA(iv);
+                                atributosCambiados += "IVA, ";
                             }
+                        } catch (NumberFormatException nfe) {
+                            error = true;
+                            atributosError = "IVA, ";
                         }
-                        if (!stock.getText().trim().equals("") && !error) {
 
-                            try {
-                                opcionElegidaProducto.setStock(Integer.parseInt(stock.getText()));
-                                atributosCambiados += "Stock";
-                            } catch (NumberFormatException nfe) {
-                                error = true;
-                                String[] opciones = {"Aceptar"};
+                    }
+                }
 
-                                JOptionPane.showOptionDialog(null,
-                                        "Debes utilizar números en los campos de Precio, IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                        JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
-                                        opciones, opciones[0]);
-                            }
-                        }
+                if (!stock.getText().trim().equals("") && !error) {
+                    try {
+                        opcionElegidaProducto.setStock(Integer.parseInt(stock.getText()));
+                        atributosCambiados += "Stock";
+                    } catch (NumberFormatException nfe) {
+                        error = true;
+                        atributosError = "Stock, ";
                     }
                 }
 
@@ -199,7 +200,7 @@ public class UtilidadesAdmin {
                     for (Categoria c : Categoria.values()) {
                         if (categ.getText().equalsIgnoreCase(c.getCATEGORIA())) {
                             opcionElegidaProducto.setCategoria(c);
-                            atributosCambiados += "Categoría, ";
+                            atributosCambiados = "Categoría, ";
                         }
                     }
                 }
@@ -213,17 +214,25 @@ public class UtilidadesAdmin {
                     }
                 }
 
+                //Se mostrará el primer mensaje si no hay errores, y aparecerán
+                //los nombres de los atributos editados
+                String[] opciones = {"Aceptar"};
                 if (!error) {
-                    String[] opciones = {"Aceptar"};
-
                     JOptionPane.showOptionDialog(null,
                             "Cambios realizados con éxito en " + atributosCambiados + " ",
                             "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
+                            JOptionPane.QUESTION_MESSAGE,
+                            new ImageIcon("src/main/java/iconos/admin1.png"),
+                            opciones, opciones[0]);
+                } else {
+                    //Si sucede algún error se mostrará un mensaje con el nombre del atributo
+                    JOptionPane.showOptionDialog(null,
+                            "Ha sucedido un error con el " + atributosError + "vuelva a intentar",
+                            "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            new ImageIcon("src/main/java/iconos/admin1.png"),
                             opciones, opciones[0]);
                 }
-            } else {
-                modoMantenimiento(tpv);
             }
         }
     }
@@ -258,6 +267,7 @@ public class UtilidadesAdmin {
         if (option == JOptionPane.OK_OPTION) {
 
             producto.setDescripcion(descrip.getText());
+            String atributosError = "";
 
             for (Categoria c : Categoria.values()) {
                 if (categ.getText().equalsIgnoreCase(c.getCATEGORIA())) {
@@ -277,48 +287,40 @@ public class UtilidadesAdmin {
                 producto.setPrecio(Double.parseDouble(precio.getText()));
             } catch (NumberFormatException nfe) {
                 error = true;
-                String[] opciones = {"Aceptar"};
+                atributosError += "Precio, ";
+            }
 
+            for (IVA iv : IVA.values()) {
+                try {
+                    if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
+                        producto.setIVA(iv);
+                    }
+                } catch (NumberFormatException nfe) {
+                    error = true;
+                    atributosError += "IVA, ";
+                }
+            }
+
+            try {
+                producto.setStock(Integer.parseInt(stock.getText()));
+            } catch (NumberFormatException nfe) {
+                error = true;
+                atributosError += "Stock, ";
+            }
+
+            if (error) {
+                String[] opciones = {"Aceptar"};
+                //Si sucede algún error se mostrará un mensaje con el nombre del atributo
                 JOptionPane.showOptionDialog(null,
-                        "Debes utilizar números en los campos de Precio, IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
+                        "Ha sucedido un error con " + atributosError 
+                                + " no se han registrado esos datos, "
+                                        + "puedes editarlos en la opción Editar producto",
+                        "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        new ImageIcon("src/main/java/iconos/admin1.png"),
                         opciones, opciones[0]);
             }
 
-            if (!error) {
-                for (IVA iv : IVA.values()) {
-                    try {
-                        if (Double.parseDouble(iva.getText()) == iv.getPORCENTAJE_IVA()) {
-                            producto.setIVA(iv);
-                        }
-                    } catch (NumberFormatException nfe) {
-                        error = true;
-                        String[] opciones = {"Aceptar"};
-
-                        JOptionPane.showOptionDialog(null,
-                                "Debes utilizar números en los campos de Precio, "
-                                + "IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE,
-                                new ImageIcon("src/main/java/iconos/admin1.png"),
-                                opciones, opciones[0]);
-                    }
-                }
-
-                if (!error) {
-                    try {
-                        producto.setStock(Integer.parseInt(stock.getText()));
-                    } catch (NumberFormatException nfe) {
-                        error = true;
-                        String[] opciones = {"Aceptar"};
-
-                        JOptionPane.showOptionDialog(null,
-                                "Debes utilizar números en los campos de Precio, IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
-                                opciones, opciones[0]);
-                    }
-                }
-            }
         } else {
             modoMantenimiento(tpv);
         }
@@ -387,7 +389,6 @@ public class UtilidadesAdmin {
 //        }
 //
 //    }
-
     //Metodo que genera las diferentes opciones para consultar las ventas
     public static void consultarVentas(TPV tpv) {
 
@@ -400,11 +401,8 @@ public class UtilidadesAdmin {
 
         switch (opcionElegida) {
             case 0 -> {//Opción para ver todos los tickets de un día
-                
-                
-                //NO ESTÁ IMPLEMENTADO, PRÓXIMAMENTE
 
-                
+                //NO ESTÁ IMPLEMENTADO, PRÓXIMAMENTE
 //                JTextField mes = new JTextField();
 //                JTextField anyo = new JTextField();
 //                JTextField dia = new JTextField();
@@ -424,14 +422,10 @@ public class UtilidadesAdmin {
 //                    LocalDate fechaDia = LocalDate.MIN;
 //                    verPedidosDia(fechaDia, tpv.getBaseDatosTicket(), tpv);
 //                }
-
             }
             case 1 -> {//Opcion para ver todos los tickets hasta una fecha concreta
-                
-                
-                //NO ESTÁ IMPLENTADO, PRÓXIMAMENTE
 
-                
+                //NO ESTÁ IMPLENTADO, PRÓXIMAMENTE
 //                JTextField mes = new JTextField();
 //                JTextField anyo = new JTextField();
 //                JTextField dia = new JTextField();
@@ -454,7 +448,7 @@ public class UtilidadesAdmin {
             case 2 -> {//Opción para ver todas las ventas registradas
 
                 //Desplegable donde se puede elegir entre todos los tickets
-                if (!(tpv.getBaseDatosTicket().isEmpty())) {
+                if (!tpv.getBaseDatosTicket().isEmpty()) {
                     Ticket ticketEscogido = (Ticket) JOptionPane.showInputDialog(null,
                             "Consultar las ventas", "TPV - Poke Zen",
                             JOptionPane.QUESTION_MESSAGE,
