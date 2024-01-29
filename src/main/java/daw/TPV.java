@@ -6,7 +6,6 @@ package daw;
 
 import java.awt.Color;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -21,7 +20,6 @@ import javax.swing.UIManager;
 public class TPV {
 
     private final UUID ID;
-    private LocalDateTime fechaHoraSistema;
     private LocalDate fechaSistema;
     private LocalTime horaSistema;
     private String direccion;
@@ -32,7 +30,8 @@ public class TPV {
 
     public TPV(String direccion) {
         this.ID = UUID.randomUUID();
-        this.fechaHoraSistema = LocalDateTime.now();
+        this.fechaSistema = LocalDate.now();
+        this.horaSistema = LocalTime.now();
         this.direccion = direccion;
         this.password = UtilidadesAdmin.crearPassword();
         this.cartaProductos = UtilidadesTPV.listaProductos();
@@ -48,48 +47,36 @@ public class TPV {
         return cartaProductos;
     }
 
-    public void setCartaProductos(ArrayList<Producto> cartaProductos) {
-        this.cartaProductos = cartaProductos;
-    }
-
     public ArrayList<Producto> getCarrito() {
         return carrito;
-    }
-
-    public void setCarrito(ArrayList<Producto> carrito) {
-        this.carrito = carrito;
     }
 
     public ArrayList<Ticket> getBaseDatosTicket() {
         return baseDatosTicket;
     }
 
-    public void setBaseDatosTicket(ArrayList<Ticket> baseDatosTicket) {
-        this.baseDatosTicket = baseDatosTicket;
-    }
-
     public UUID getID() {
         return ID;
-    }
-
-    public LocalDateTime getFechaHoraSistema() {
-        return fechaHoraSistema;
     }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public void setFechaHoraSistema(LocalDateTime fechaHoraSistema) {
-        this.fechaHoraSistema = fechaHoraSistema;
+    public String getPassword() {
+        return password;
+    }
+
+    public LocalDate getFechaSistema() {
+        return fechaSistema;
+    }
+
+    public LocalTime getHoraSistema() {
+        return horaSistema;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -97,7 +84,8 @@ public class TPV {
         StringBuilder sb = new StringBuilder();
         sb.append("TPV{");
         sb.append("ID=").append(ID);
-        sb.append(", fechaHoraSistema=").append(fechaHoraSistema);
+        sb.append(", fechaSistema=").append(fechaSistema);
+        sb.append(", horaSistema=").append(horaSistema);
         sb.append(", direccion=").append(direccion);
         sb.append('}');
         return sb.toString();
@@ -115,7 +103,7 @@ public class TPV {
 
         boolean encendido = true;
         boolean usuario = false;
-        
+
         do {//Do while que controla el apagado del tpv
             int opcionModo;
 
@@ -128,23 +116,20 @@ public class TPV {
 
             switch (opcionModo) {
                 case 0 -> {
-                    boolean passValida;
                     usuario = false;
-                    do {
-                        passValida = UtilidadesAdmin.pedirPassword(this);
 
-                        if (passValida) {
-                            UtilidadesAdmin.modoMantenimiento(this);
+                    if (UtilidadesAdmin.pedirPassword(this)) {
+                        
+                        UtilidadesAdmin.modoMantenimiento(this);
 
-                        } else {
-                            String[] opciones = {"Aceptar"};
+                    } else {
+                        String[] opciones = {"Aceptar"};
 
-                            JOptionPane.showOptionDialog(null,
-                                    "La contraseña no es correcta, vuelve a intentar", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
-                                    opciones, opciones[0]);
-                        }
-                    } while (!passValida);
+                        JOptionPane.showOptionDialog(null,
+                                "La contraseña no es correcta, vuelve a intentar", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
+                                opciones, opciones[0]);
+                    }
                 }
                 case 1 -> {
 

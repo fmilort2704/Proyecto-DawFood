@@ -90,7 +90,7 @@ public class Ticket {
                         Número de pedido: %d
                         Fecha: %s       Hora: %s
                         ------------------------------------------------------------------
-                        Producto    Precio    Cantidad    IVA 
+                        Producto        Precio        Cantidad        IVA 
                         ------------------------------------------------------------------
                         """.formatted(this.ID.toString(), this.numPedido,
                 this.fechaOperacion.format(DateTimeFormatter.ofPattern("d/M/uuuu")),
@@ -98,13 +98,13 @@ public class Ticket {
 
         for (Producto p : this.listaProductos) {
             ticket += """
-                      %s        %.2f        %d       %.2f%%
+                      %s        %.2f€        %d       %.2f%%
                       """.formatted(p.getDescripcion(), p.getPrecio(), 
                               p.getStock(),p.getIVA().getPORCENTAJE_IVA());
         }
         ticket += """
                 ------------------------------------------------------------------
-                  Total: %.2f    
+                  Total: %.2f€    
                   
                                   ---  Gracias por su visita  ---
                 ------------------------------------------------------------------"""

@@ -35,14 +35,13 @@ public class UtilidadesAdmin {
 
         if (password == null) {
             UtilidadesTPV.seleccionarModo();
-        }
-
-        try {
-            if (password.equals(tpv.getPassword())) {
-                return true;
+        } else {
+            try {
+                if (password.equals(tpv.getPassword())) {
+                    return true;
+                }
+            } catch (NullPointerException npe) {
             }
-        } catch (NullPointerException npe) {
-            UtilidadesTPV.seleccionarModo();
         }
 
         return false;
@@ -330,123 +329,131 @@ public class UtilidadesAdmin {
         return producto;
     }
 
-    //Ver los pedidos de la lista entera de ticket durente el dia de hoy
-    public static void verPedidosDia(LocalDate dia, ArrayList<Ticket> listaTicket, TPV tpv) {
-        ArrayList<Ticket> listaTicketHoy = new ArrayList<>();
-
-        for (int i = 0; i < listaTicket.size(); i++) {
-            if (listaTicket.get(i).getFechaOperacion().isEqual(dia)) {
-                listaTicketHoy.add(listaTicket.get(i));
-            }
-        }
-        if (!(tpv.getBaseDatosTicket().isEmpty())) {
-            Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
-                    "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                    new ImageIcon("src/main/java/iconos/admin1.png"),
-                    listaTicketHoy.toArray(),
-                    listaTicketHoy.get(0));
-        } else {
-
-            Object[] opcionAceptar = {"Aceptar"};
-
-            JOptionPane.showOptionDialog(null,
-                    "No hay ventas en el dia de hoy todavia",
-                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    new ImageIcon("src/main/java/iconos/admin1.png"),
-                    opcionAceptar, opcionAceptar[0]);
-
-        }
-    }
-
-    //Ver los pedidos de la lista entera de ticket hasta una fecha concreta
-    public static void verPedidosHastaFecha(LocalDate diaLimite, ArrayList<Ticket> listaTicket, TPV tpv) {
-        ArrayList<Ticket> listaTicketFechaConcreta = new ArrayList<>();
-        for (int i = 0; i < listaTicket.size(); i++) {
-            if (listaTicket.get(i).getFechaOperacion().isBefore(diaLimite)
-                    || listaTicket.get(i).getFechaOperacion().isEqual(diaLimite)) {
-                listaTicketFechaConcreta.add(listaTicket.get(i));
-            }
-        }
-        if (!(tpv.getBaseDatosTicket().isEmpty())) {
-            Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
-                    "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                    new ImageIcon("src/main/java/iconos/admin1.png"),
-                    listaTicketFechaConcreta.toArray(),
-                    listaTicketFechaConcreta.get(0));
-        } else {
-
-            Object[] opcionAceptar = {"Aceptar"};
-
-            JOptionPane.showOptionDialog(null,
-                    "Hasta esa fecha no hay ventas registradas",
-                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    new ImageIcon("src/main/java/iconos/admin1.png"),
-                    opcionAceptar, opcionAceptar[0]);
-
-        }
-
-    }
+//    //Ver los pedidos de la lista entera de ticket durente el dia de hoy
+//    public static void verPedidosDia(LocalDate dia, ArrayList<Ticket> listaTicket, TPV tpv) {
+//        ArrayList<Ticket> listaTicketHoy = new ArrayList<>();
+//
+//        for (int i = 0; i < listaTicket.size(); i++) {
+//            if (listaTicket.get(i).getFechaOperacion().isEqual(dia)) {
+//                listaTicketHoy.add(listaTicket.get(i));
+//            }
+//        }
+//        if (!(tpv.getBaseDatosTicket().isEmpty())) {
+//            Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
+//                    "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+//                    new ImageIcon("src/main/java/iconos/admin1.png"),
+//                    listaTicketHoy.toArray(),
+//                    listaTicketHoy.get(0));
+//        } else {
+//
+//            Object[] opcionAceptar = {"Aceptar"};
+//
+//            JOptionPane.showOptionDialog(null,
+//                    "No hay ventas en el dia de hoy todavia",
+//                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+//                    JOptionPane.QUESTION_MESSAGE,
+//                    new ImageIcon("src/main/java/iconos/admin1.png"),
+//                    opcionAceptar, opcionAceptar[0]);
+//
+//        }
+//    }
+//
+//    //Ver los pedidos de la lista entera de ticket hasta una fecha concreta
+//    public static void verPedidosHastaFecha(LocalDate diaLimite, ArrayList<Ticket> listaTicket, TPV tpv) {
+//        ArrayList<Ticket> listaTicketFechaConcreta = new ArrayList<>();
+//        for (int i = 0; i < listaTicket.size(); i++) {
+//            if (listaTicket.get(i).getFechaOperacion().isBefore(diaLimite)
+//                    || listaTicket.get(i).getFechaOperacion().isEqual(diaLimite)) {
+//                listaTicketFechaConcreta.add(listaTicket.get(i));
+//            }
+//        }
+//        if (!(tpv.getBaseDatosTicket().isEmpty())) {
+//            Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
+//                    "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
+//                    new ImageIcon("src/main/java/iconos/admin1.png"),
+//                    listaTicketFechaConcreta.toArray(),
+//                    listaTicketFechaConcreta.get(0));
+//        } else {
+//
+//            Object[] opcionAceptar = {"Aceptar"};
+//
+//            JOptionPane.showOptionDialog(null,
+//                    "Hasta esa fecha no hay ventas registradas",
+//                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+//                    JOptionPane.QUESTION_MESSAGE,
+//                    new ImageIcon("src/main/java/iconos/admin1.png"),
+//                    opcionAceptar, opcionAceptar[0]);
+//
+//        }
+//
+//    }
 
     //Metodo que genera las diferentes opciones para consultar las ventas
     public static void consultarVentas(TPV tpv) {
-        boolean repetir = true;
-        Object[] opciones = {"Ventas del día", "Venta hasta día concreto",
-            "Todas la ventas", "Volver"};
+
+        Object[] opciones = {"Ventas día concreto", "Ventas hasta día concreto",
+            "Todas las ventas", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Consultar las ventas", "TPV", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
                 opciones, opciones[3]);
-        tpv.getBaseDatosTicket();
+
         switch (opcionElegida) {
-            case 0 -> {
-                //Opción para ver todos los tickets del dia de hoy
-                JTextField mes = new JTextField();
-                JTextField anyo = new JTextField();
-                JTextField dia = new JTextField();
-                Object[] message = {
-                    "Introduce la fecha concreta",
-                    "Dia:", dia,
-                    "Mes:", mes,
-                    "Año:", anyo,};
+            case 0 -> {//Opción para ver todos los tickets de un día
+                
+                
+                //NO ESTÁ IMPLEMENTADO, PRÓXIMAMENTE
 
-                int option = 0;
-
-                option = JOptionPane.showConfirmDialog(null, message,
-                        "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
-                repetir = false;
-
-                if (option == JOptionPane.OK_OPTION) {
-
-                    LocalDate fechaDia = LocalDate.MIN;
-                    verPedidosDia(fechaDia, tpv.getBaseDatosTicket(), tpv);
-                }
+                
+//                JTextField mes = new JTextField();
+//                JTextField anyo = new JTextField();
+//                JTextField dia = new JTextField();
+//                Object[] message = {
+//                    "Introduce la fecha concreta",
+//                    "Dia:", dia,
+//                    "Mes:", mes,
+//                    "Año:", anyo,};
+//
+//                int option = 0;
+//
+//                option = JOptionPane.showConfirmDialog(null, message,
+//                        "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
+//
+//                if (option == JOptionPane.OK_OPTION) {
+//
+//                    LocalDate fechaDia = LocalDate.MIN;
+//                    verPedidosDia(fechaDia, tpv.getBaseDatosTicket(), tpv);
+//                }
 
             }
-            case 1 -> {
-                //Opcion para ver todos los tickets hasta una fecha concreta
-                JTextField mes = new JTextField();
-                JTextField anyo = new JTextField();
-                JTextField dia = new JTextField();
-                Object[] message = {
-                    "Introduce la fecha concreta",
-                    "Dia:", dia,
-                    "Mes:", mes,
-                    "Año:", anyo,};
+            case 1 -> {//Opcion para ver todos los tickets hasta una fecha concreta
+                
+                
+                //NO ESTÁ IMPLENTADO, PRÓXIMAMENTE
 
-                int option = 0;
-
-                option = JOptionPane.showConfirmDialog(null, message,
-                        "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
-                if (option == JOptionPane.OK_OPTION) {
-
-                    LocalDate fechaDia = LocalDate.MIN;
-                    verPedidosHastaFecha(fechaDia, tpv.getBaseDatosTicket(), tpv);
-                }
+                
+//                JTextField mes = new JTextField();
+//                JTextField anyo = new JTextField();
+//                JTextField dia = new JTextField();
+//                Object[] message = {
+//                    "Introduce la fecha concreta",
+//                    "Dia:", dia,
+//                    "Mes:", mes,
+//                    "Año:", anyo,};
+//
+//                int option = 0;
+//
+//                option = JOptionPane.showConfirmDialog(null, message,
+//                        "TPV - Poke Zen", JOptionPane.OK_CANCEL_OPTION);
+//                if (option == JOptionPane.OK_OPTION) {
+//
+//                    LocalDate fechaDia = LocalDate.MIN;
+//                    verPedidosHastaFecha(fechaDia, tpv.getBaseDatosTicket(), tpv);
+//                }
             }
-            case 2 -> {
-                //Opción para ver todas las ventas registradas
+            case 2 -> {//Opción para ver todas las ventas registradas
+
+                //Desplegable donde se puede elegir entre todos los tickets
                 if (!(tpv.getBaseDatosTicket().isEmpty())) {
                     Ticket ticketEscogido = (Ticket) JOptionPane.showInputDialog(null,
                             "Consultar las ventas", "TPV - Poke Zen",
@@ -460,7 +467,7 @@ public class UtilidadesAdmin {
                     } else {
                         Object[] opcionAceptar = {"Aceptar"};
 
-                        //Se muestra el ticket de compra
+                        //Se muestra el ticket de compra elegido
                         JOptionPane.showOptionDialog(null,
                                 ticketEscogido.toStringChulo(), "TPV - Poke Zen",
                                 JOptionPane.DEFAULT_OPTION,
@@ -468,9 +475,7 @@ public class UtilidadesAdmin {
                                 new ImageIcon("src/main/java/iconos/admin1.png"),
                                 opcionAceptar, opcionAceptar[0]);
                     }
-
                 } else {
-
                     Object[] opcionAceptar = {"Aceptar"};
 
                     JOptionPane.showOptionDialog(null,
@@ -479,7 +484,6 @@ public class UtilidadesAdmin {
                             JOptionPane.QUESTION_MESSAGE,
                             new ImageIcon("src/main/java/iconos/admin1.png"),
                             opcionAceptar, opcionAceptar[0]);
-
                 }
             }
             //No hace falta case 3 (volver)

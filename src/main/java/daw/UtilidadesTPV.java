@@ -196,9 +196,11 @@ public class UtilidadesTPV {
             do {//Este do while hará que se repita la pantalla si la cantidad que se quiere excede al stock
                 do {
                     try {
+                        //Mostramos el producto seleccionado con el detalle de precio con iva y sin iva
+                        //y dejamos que se elija la cantidad
                         numProductos = Integer.parseInt(JOptionPane.showInputDialog("Información del producto \n"
                                 + p.getDescripcion() + " Precio sin IVA: " + p.getPrecio()
-                                + " Precio con IVA: %.2f".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
+                                + "€ Precio con IVA: %.2f€".formatted(p.getPrecio() * p.getIVA().getPORCENTAJE_IVA())));
                         excepcion = false;
 
                     } catch (NumberFormatException nfe) {//Captura que se introduzca una letra
@@ -257,7 +259,7 @@ public class UtilidadesTPV {
             //añadimos nombres de productos (descripción) y cantidad (stock del carrito)
             infoProductosCesta += tpv.getCarrito().get(i).getDescripcion()
                     + "     Cant.: " + tpv.getCarrito().get(i).getStock()
-                    + "     " + tpv.getCarrito().get(i).getPrecio() + "\n";
+                    + "     " + tpv.getCarrito().get(i).getPrecio() + "€ \n";
 
             //se suman los precios
             totalPagar += tpv.getCarrito().get(i).getPrecio()
@@ -270,8 +272,8 @@ public class UtilidadesTPV {
         }
 
         //coloco los resultados de las operaciones anteriores y se suma al string
-        infoProductosCesta += "\n" + "Total sin IVA: %.2f".formatted(totalPagar)
-                + "     Total con IVA: %.2f".formatted(totalConIva) + "\n";
+        infoProductosCesta += "\n" + "Total sin IVA: %.2f€".formatted(totalPagar)
+                + "     Total con IVA: %.2f€".formatted(totalConIva) + "\n";
 
         String[] options = {"Finalizar compra", "Cancelar compra", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
@@ -375,8 +377,8 @@ public class UtilidadesTPV {
 
                             //Creamos el ticket con los datos anteriores
                             Ticket t = new Ticket(new ArrayList<Producto>(tpv.getCarrito()),
-                                    totalPagar, LocalDate.now(),
-                                    LocalTime.now());
+                                    totalPagar, tpv.getFechaSistema(),
+                                    tpv.getHoraSistema());
                             //Se añade el ticket al listado del tpv
                             tpv.getBaseDatosTicket().add(t);
                             //Se vacía la cesta
