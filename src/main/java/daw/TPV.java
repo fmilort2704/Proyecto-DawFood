@@ -101,6 +101,7 @@ public class TPV {
 
     public void encenderTPV() {
 
+        //Se crea la contraseña y se muestra para el modo admin
         System.out.println("Contraseña Admin: " + this.password);
 
         UIManager.put("OptionPane.okButtonText", "Aceptar");
