@@ -113,4 +113,18 @@ public class Ticket {
         return ticket;
     }
 
+    
+    public String toStringCorto() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(ID);
+        sb.append(", numPedido: ").append(numPedido);
+        sb.append(", listaProductos: ").append(listaProductos);
+        sb.append(", importeTotal: ").append(importeTotal);
+        sb.append(", fechaOperacion: ").append(fechaOperacion);
+        sb.append(", horaOperacion: ").append(horaOperacion);
+        return sb.toString();
+    }
+    
+    
+
 }
