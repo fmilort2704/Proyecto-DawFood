@@ -251,6 +251,7 @@ public class UtilidadesAdmin {
                 JOptionPane.QUESTION_MESSAGE,
                 new ImageIcon("src/main/java/iconos/admin1.png"));
 
+        //Cuando pulse el botón aceptar
         if (option == JOptionPane.OK_OPTION) {
 
             producto.setDescripcion(descrip.getText());
@@ -292,8 +293,11 @@ public class UtilidadesAdmin {
                         String[] opciones = {"Aceptar"};
 
                         JOptionPane.showOptionDialog(null,
-                                "Debes utilizar números en los campos de Precio, IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
+                                "Debes utilizar números en los campos de Precio, "
+                                + "IVA y Stock, vuelve a intentarlo", "TPV - Poke Zen",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                new ImageIcon("src/main/java/iconos/admin1.png"),
                                 opciones, opciones[0]);
                     }
                 }
@@ -317,6 +321,8 @@ public class UtilidadesAdmin {
         }
 
         //El producto se creará aunque no se hayan rellenado todos los campos
+        //con los campos que se hayan rellenado correctamente
+        //se podrá editar en "editar producto"
         return producto;
     }
 
@@ -332,10 +338,20 @@ public class UtilidadesAdmin {
         if (!(tpv.getBaseDatosTicket().isEmpty())) {
             Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
                     "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                    null, listaTicketHoy.toArray(),
+                    new ImageIcon("src/main/java/iconos/admin1.png"),
+                    listaTicketHoy.toArray(),
                     listaTicketHoy.get(0));
         } else {
-            JOptionPane.showMessageDialog(null, "No hay ventas en el dia de hoy todavia");
+            
+            Object[] opcionAceptar = {"Aceptar"};
+
+            JOptionPane.showOptionDialog(null,
+                    "No hay ventas en el dia de hoy todavia",
+                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon("src/main/java/iconos/admin1.png"),
+                    opcionAceptar, opcionAceptar[0]);
+            
         }
     }
 
@@ -351,10 +367,20 @@ public class UtilidadesAdmin {
         if (!(tpv.getBaseDatosTicket().isEmpty())) {
             Ticket opcionTicket = (Ticket) JOptionPane.showInputDialog(null,
                     "Lista de ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                    null, listaTicketFechaConcreta.toArray(),
+                    new ImageIcon("src/main/java/iconos/admin1.png"),
+                    listaTicketFechaConcreta.toArray(),
                     listaTicketFechaConcreta.get(0));
         } else {
-            JOptionPane.showMessageDialog(null, "Hasta esa fecha no hay ventas registradas");
+
+            Object[] opcionAceptar = {"Aceptar"};
+
+            JOptionPane.showOptionDialog(null,
+                    "Hasta esa fecha no hay ventas registradas",
+                    "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon("src/main/java/iconos/admin1.png"),
+                    opcionAceptar, opcionAceptar[0]);
+
         }
 
     }
@@ -362,11 +388,12 @@ public class UtilidadesAdmin {
     //Metodo que genera las diferentes opciones para consultar las ventas
     public static void consultarVentas(TPV tpv) {
         boolean repetir = true;
-        Object[] opciones = {"Ventas del dia", "Venta hasta un dia concreto",
-            "Todas la ventas registada", "Volver"};
+        Object[] opciones = {"Ventas del día", "Venta hasta día concreto",
+            "Todas la ventas", "Volver"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Consultar las ventas", "TPV", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[3]);
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/admin1.png"),
+                opciones, opciones[3]);
         tpv.getBaseDatosTicket();
         switch (opcionElegida) {
             case 0 -> {
@@ -418,20 +445,37 @@ public class UtilidadesAdmin {
                 //Opción para ver todas las ventas registradas
                 if (!(tpv.getBaseDatosTicket().isEmpty())) {
                     Ticket ticketEscogido = (Ticket) JOptionPane.showInputDialog(null,
-                            "Consultar las ventas", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                            null, tpv.getBaseDatosTicket().toArray(),
+                            "Consultar las ventas", "TPV - Poke Zen",
+                            JOptionPane.QUESTION_MESSAGE,
+                            new ImageIcon("src/main/java/iconos/admin1.png"),
+                            tpv.getBaseDatosTicket().toArray(),
                             tpv.getBaseDatosTicket().get(0));
+
+                    if (ticketEscogido == null) {
+                        consultarVentas(tpv);
+                    } else {
+                        Object[] opcionAceptar = {"Aceptar"};
+
+                        //Se muestra el ticket de compra
+                        JOptionPane.showOptionDialog(null,
+                                ticketEscogido.toStringChulo(), "TPV - Poke Zen",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                new ImageIcon("src/main/java/iconos/admin1.png"),
+                                opcionAceptar, opcionAceptar[0]);
+                    }
+
+                } else {
 
                     Object[] opcionAceptar = {"Aceptar"};
 
-                    //Se muestra el ticket de compra
                     JOptionPane.showOptionDialog(null,
-                            ticketEscogido.toStringChulo(), "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/tarjeta1.png"),
+                            "No hay ventas registradas en la base de datos",
+                            "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            new ImageIcon("src/main/java/iconos/admin1.png"),
                             opcionAceptar, opcionAceptar[0]);
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "No hay ventas registradas en la base de datos");
                 }
             }
             //No hace falta case 3 (volver)
