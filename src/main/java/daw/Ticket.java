@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -80,8 +81,7 @@ public class Ticket {
         this.horaOperacion = horaOperacion;
     }
 
-    @Override
-    public String toString() {
+    public String toStringChulo() {
         String ticket = """
                         ------------------------------------------------------------------
                                               Restaurante PokéZen
@@ -114,15 +114,37 @@ public class Ticket {
     }
 
     
-    public String toStringCorto() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ID: ").append(ID);
         sb.append(", numPedido: ").append(numPedido);
-        sb.append(", listaProductos: ").append(listaProductos);
         sb.append(", importeTotal: ").append(importeTotal);
         sb.append(", fechaOperacion: ").append(fechaOperacion);
         sb.append(", horaOperacion: ").append(horaOperacion);
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.ID);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ticket other = (Ticket) obj;
+        return Objects.equals(this.ID, other.ID);
     }
     
     

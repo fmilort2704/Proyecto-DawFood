@@ -28,7 +28,7 @@ public class UtilidadesTarjeta {
         //Caducada
         listaTarjetas.add(new Tarjeta("1234567894567891",
                 LocalDate.of(2023, 12, LocalDate.MIN.getDayOfMonth()),
-                "789", "Vica", 100000));
+                "789", "Vico", 100000));
 
         return listaTarjetas;
     }

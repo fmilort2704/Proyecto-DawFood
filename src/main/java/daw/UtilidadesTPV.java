@@ -379,7 +379,7 @@ public class UtilidadesTPV {
 
                             //Se muestra el ticket de compra
                             JOptionPane.showOptionDialog(null,
-                                    t, "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
+                                    t.toStringChulo(), "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
                                     JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/main/java/iconos/tarjeta1.png"),
                                     opciones, opciones[0]);
 

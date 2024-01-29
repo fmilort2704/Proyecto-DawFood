@@ -110,13 +110,15 @@ public class TPV {
         UIManager.put("Panel.background", new Color(147, 217, 196));
 
         boolean encendido = true;
-            boolean usuario = false;
-        do {
+        boolean usuario = false;
+        
+        do {//Do while que controla el apagado del tpv
             int opcionModo;
-            
-            if(usuario){
+
+            //Se encarga de volver al seleccionarModo
+            if (usuario) {
                 opcionModo = 1;
-            }else{
+            } else {
                 opcionModo = UtilidadesTPV.seleccionarModo();
             }
 
@@ -141,11 +143,12 @@ public class TPV {
                     } while (!passValida);
                 }
                 case 1 -> {
-                    
+
                     usuario = UtilidadesTPV.seleccionarCategoría(this);
                 }
                 case 2 -> {
                     usuario = false;
+                    //Opción apagar
                     encendido = false;
                 }
             }
