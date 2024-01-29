@@ -71,15 +71,19 @@ public class UtilidadesAdmin {
 
                 if (opcionElegidaProducto == null) {
                     modoMantenimiento(tpv);
-                }
-
-                for (Producto p : tpv.getCartaProductos()) {
-                    try {
-                        if (opcionElegidaProducto.equals(p)) {
-                            tpv.getCartaProductos().remove(p);
+                } else {
+                    //Obtenemos el indice del producto que hemos elegido,
+                    //para borralo fuera del for each
+                    int indice = 0;
+                    for (Producto p : tpv.getCartaProductos()) {
+                        try {
+                            if (opcionElegidaProducto.equals(p)) {
+                                indice = tpv.getCartaProductos().indexOf(p);
+                            }
+                        } catch (NullPointerException npe) {
                         }
-                    } catch (NullPointerException npe) {
                     }
+                    tpv.getCartaProductos().remove(indice);
                 }
             }
             case 3 -> {
@@ -342,7 +346,7 @@ public class UtilidadesAdmin {
                     listaTicketHoy.toArray(),
                     listaTicketHoy.get(0));
         } else {
-            
+
             Object[] opcionAceptar = {"Aceptar"};
 
             JOptionPane.showOptionDialog(null,
@@ -351,7 +355,7 @@ public class UtilidadesAdmin {
                     JOptionPane.QUESTION_MESSAGE,
                     new ImageIcon("src/main/java/iconos/admin1.png"),
                     opcionAceptar, opcionAceptar[0]);
-            
+
         }
     }
 

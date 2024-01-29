@@ -5,7 +5,9 @@
 package daw;
 
 import java.awt.Color;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
 import javax.swing.ImageIcon;
@@ -20,6 +22,8 @@ public class TPV {
 
     private final UUID ID;
     private LocalDateTime fechaHoraSistema;
+    private LocalDate fechaSistema;
+    private LocalTime horaSistema;
     private String direccion;
     private String password;
     private ArrayList<Producto> cartaProductos;

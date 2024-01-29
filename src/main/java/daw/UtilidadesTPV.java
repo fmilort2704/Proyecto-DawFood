@@ -75,11 +75,14 @@ public class UtilidadesTPV {
                 "Escoge una categoría", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), options, options[3]);
 
+        ImageIcon icono;
+        
         switch (opcionElegida) {
             case 0 -> {
                 //Categoría comida
+                icono = new ImageIcon("src/main/java/iconos/bowl1.png");
                 seleccionarSubcategoria(tpv, Subcategoria.POKE,
-                        Subcategoria.WRAP, Subcategoria.LOCO_MOCO);
+                        Subcategoria.WRAP, Subcategoria.LOCO_MOCO, icono);
                 return true;
                 //He hecho que devuelva un booleano en todos los case para que 
                 //no haya problemas con el botón volver y repetir la pantalla como se debe.
@@ -87,14 +90,16 @@ public class UtilidadesTPV {
             }
             case 1 -> {
                 //Categoría bebida
+                icono = new ImageIcon("src/main/java/iconos/bebida1.png");
                 seleccionarSubcategoria(tpv, Subcategoria.AGUA,
-                        Subcategoria.CERVEZA, Subcategoria.REFRESCO);
+                        Subcategoria.CERVEZA, Subcategoria.REFRESCO, icono);
                 return true;
             }
             case 2 -> {
                 //Categoría postre
+                icono = new ImageIcon("src/main/java/iconos/helado1.png");
                 seleccionarSubcategoria(tpv, Subcategoria.HELADO,
-                        Subcategoria.FRUTA, Subcategoria.TARTA);
+                        Subcategoria.FRUTA, Subcategoria.TARTA, icono);
                 return true;
             }
             case 3 -> {
@@ -112,25 +117,27 @@ public class UtilidadesTPV {
 
     //Le paso por parámetros 3 subcategorías para poder diferenciar de que categoría es 
     //en el método seleccionarCategoría
-    public static void seleccionarSubcategoria(TPV tpv, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
+    public static void seleccionarSubcategoria(TPV tpv, Subcategoria s1, Subcategoria s2, Subcategoria s3, ImageIcon icono) {
 
         Object[] options = {s1, s2, s3, "Volver", "Ver cesta"};
         int opcionElegida = JOptionPane.showOptionDialog(null,
                 "Escoge una subcategoría", "TPV - Poke Zen", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/main/java/iconos/poke1.png"), options, options[3]);
+                JOptionPane.PLAIN_MESSAGE, icono, options, options[3]);
 
+        
+        
         switch (opcionElegida) {
             case 0 -> {
-
-                seleccionarProducto(tpv, s1, s1, s2, s3);
+                
+                seleccionarProducto(tpv, s1, s1, s2, s3, icono);
             }
             case 1 -> {
 
-                seleccionarProducto(tpv, s2, s1, s2, s3);
+                seleccionarProducto(tpv, s2, s1, s2, s3, icono);
             }
             case 2 -> {
 
-                seleccionarProducto(tpv, s3, s1, s2, s3);
+                seleccionarProducto(tpv, s3, s1, s2, s3, icono);
             }
             case 4 -> {
                 verCesta(tpv);
@@ -138,7 +145,7 @@ public class UtilidadesTPV {
         }
     }
 
-    private static void seleccionarProducto(TPV tpv, Subcategoria subcat, Subcategoria s1, Subcategoria s2, Subcategoria s3) {
+    private static void seleccionarProducto(TPV tpv, Subcategoria subcat, Subcategoria s1, Subcategoria s2, Subcategoria s3, ImageIcon icono) {
 
         //Obtenemos nuestra carta completa
         ArrayList<Producto> baseDatosProductos = tpv.getCartaProductos();
@@ -163,12 +170,12 @@ public class UtilidadesTPV {
 
         String opcionElegidaProducto = (String) JOptionPane.showInputDialog(null,
                 "Escoge un producto", "TPV - Poke Zen", JOptionPane.QUESTION_MESSAGE,
-                new ImageIcon("src/main/java/iconos/poke1.png"), nombreProductosAMostrar.toArray(),
+                icono, nombreProductosAMostrar.toArray(),
                 nombreProductosAMostrar.get(0));
 
         //Este if es por el botón volver de la pantalla de productos, que devuelve un null
         if (opcionElegidaProducto == null) {
-            seleccionarSubcategoria(tpv, s1, s2, s3);
+            seleccionarSubcategoria(tpv, s1, s2, s3, icono);
         } else {
             //Creo este producto para poder hacer una copia
             //del que se escoja y trabajar con este
