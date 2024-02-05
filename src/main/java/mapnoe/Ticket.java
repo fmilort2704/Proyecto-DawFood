@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -20,17 +21,17 @@ public class Ticket {
 
     private UUID ID;
     private int numPedido;
-    private ArrayList<Producto> listaProductos;
+    Map<Producto, Integer> cesta;
     private double importeTotal;
     private LocalDate fechaOperacion;
     private LocalTime horaOperacion;
     private static int contadorNumPedido = 0;
 
-    public Ticket(ArrayList<Producto> listaProductos, double importeTotal, LocalDate fechaOperacion, LocalTime horaOperacion) {
+    public Ticket(Map<Producto, Integer> cesta, double importeTotal, LocalDate fechaOperacion, LocalTime horaOperacion) {
         this.ID = UUID.randomUUID();
         contadorNumPedido++;
         this.numPedido = contadorNumPedido;
-        this.listaProductos = listaProductos;
+        this.cesta = cesta;
         this.importeTotal = importeTotal;
         this.fechaOperacion = fechaOperacion;
         this.horaOperacion = horaOperacion;
@@ -50,12 +51,8 @@ public class Ticket {
         return numPedido;
     }
 
-    public ArrayList<Producto> getListaProductos() {
-        return listaProductos;
-    }
-
-    public void setListaProductos(ArrayList<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
+    public Map<mapnoe.Producto, Integer> getCesta() {
+        return cesta;
     }
 
     public double getImporteTotal() {
@@ -97,11 +94,11 @@ public class Ticket {
                 this.fechaOperacion.format(DateTimeFormatter.ofPattern("d/M/uuuu")),
                 this.horaOperacion.format(DateTimeFormatter.ofPattern("H:m")));
 
-        for (Producto p : this.listaProductos) {
+        for (Map.Entry<Producto, Integer> entrada : this.cesta.entrySet()) {
             ticket += """
                       %s        %.2f€        %d       %.2f%%
-                      """.formatted(p.getDescripcion(), p.getPrecio(), 
-                              p.getStock(),p.getIVA().getPORCENTAJE_IVA());
+                      """.formatted(entrada.getKey().getDescripcion(), entrada.getKey().getPrecio(), 
+                              entrada.getValue(),entrada.getKey().getIVA().getPORCENTAJE_IVA());
         }
         ticket += """
                 ------------------------------------------------------------------

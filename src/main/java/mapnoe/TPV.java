@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -37,7 +38,7 @@ public class TPV {
         this.direccion = direccion;
         this.password = UtilidadesAdmin.crearPassword();
         this.cartaProductos = UtilidadesTPV.listaProductos();
-        this.cesta = new TreeMap<>();
+        this.cesta = new HashMap<>();
         this.baseDatosTicket = new ArrayList<>();
     }
 

@@ -7,6 +7,7 @@ package mapnoe;
 import daw.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -232,24 +233,7 @@ public class UtilidadesTPV {
                 } while (excepcion);
             } while (numProductos > p.getStock());
 
-//            //Comprobamos si ya se había guardado el producto escogido en la cesta anteriormente
-//            //si es así, sólo se modifica el stock del productro en la cesta
-//            boolean repetido = false;
-//            for (Producto pCarrito : tpv.getCarrito()) {
-//                if (p.equals(pCarrito)) {
-//                    repetido = true;
-//                    pCarrito.setStock(pCarrito.getStock() + Math.abs(numProductos));
-//                }
-//            }
-//
-//            //Si no estaba el producto en la cesta, se añade a esta
-//            if (!repetido) {
-//                //Primero se modifica el stock de la copia del producto
-//                //para no añadir todo el stock existente
-//                p.setStock(numProductos);
-//                //Y finalmente se añade a la cesta
-//                tpv.getCarrito().add(p);
-//            }
+            //Version cesta map
             if(tpv.getCesta().containsKey(p)){
                 tpv.getCesta().put(p, tpv.getCesta().get(p) + numProductos);
             }else{
@@ -267,25 +251,18 @@ public class UtilidadesTPV {
         //su precio y la cantadidad,
         //también el precio total de la compra con iva y sin iva
         String infoProductosCesta = "PRODUCTOS EN LA CESTA \n \n";
-
-//        for (int i = 0; i < tpv.getCarrito().size(); i++) {
-//            //añadimos nombres de productos (descripción) y cantidad (stock del carrito)
-//            infoProductosCesta += tpv.getCarrito().get(i).getDescripcion()
-//                    + "     Cant.: " + tpv.getCarrito().get(i).getStock()
-//                    + "     " + tpv.getCarrito().get(i).getPrecio() + "€ \n";
-//
-//            //se suman los precios
-//            totalPagar += tpv.getCarrito().get(i).getPrecio()
-//                    * tpv.getCarrito().get(i).getStock();
-//
-//            //se suman los precios y se le calcula el iva
-//            totalConIva += tpv.getCarrito().get(i).getPrecio()
-//                    * tpv.getCarrito().get(i).getIVA().getPORCENTAJE_IVA()
-//                    * tpv.getCarrito().get(i).getStock();
-//        }
-
+        
+        //Version cesta map
         for (Map.Entry<Producto, Integer> entrada : tpv.getCesta().entrySet()) {
+            infoProductosCesta += entrada.getKey().getDescripcion()
+                    + "     Cant.: " + entrada.getValue()
+                    + "     " + entrada.getKey().getPrecio() + "€ \n";
             
+            totalPagar += entrada.getKey().getPrecio() * entrada.getValue();
+            
+            totalConIva += entrada.getKey().getPrecio()
+                    * entrada.getKey().getIVA().getPORCENTAJE_IVA()
+                    * entrada.getValue();
         }
 
         //coloco los resultados de las operaciones anteriores y se suma al string
@@ -303,7 +280,7 @@ public class UtilidadesTPV {
                 pasarelaPago(tpv, totalPagar);
             }
             case 1 -> {
-                tpv.getCarrito().clear();
+                tpv.getCesta().clear();
                 seleccionarModo();
             }
             //No necesito el case 2 (volver), ya que ya está organizado en
@@ -383,22 +360,22 @@ public class UtilidadesTPV {
                             }
 
                             //También se resta la cantidad comprada al stock de la base de datos 
-                            for (Producto pCarrito : tpv.getCarrito()) {
+                            for (Map.Entry<Producto, Integer> entrada : tpv.getCesta().entrySet()) {
                                 for (Producto pCarta : tpv.getCartaProductos()) {
-                                    if (pCarrito.equals(pCarta)) {
-                                        pCarta.setStock(pCarta.getStock() - pCarrito.getStock());
+                                    if (entrada.getKey().equals(pCarta)) {
+                                        pCarta.setStock(pCarta.getStock() - entrada.getValue());
                                     }
                                 }
                             }
 
                             //Creamos el ticket con los datos anteriores
-                            Ticket t = new Ticket(new ArrayList<Producto>(tpv.getCarrito()),
+                            Ticket t = new Ticket(new HashMap(tpv.getCesta()),
                                     totalPagar, tpv.getFechaSistema(),
                                     tpv.getHoraSistema());
                             //Se añade el ticket al listado del tpv
                             tpv.getBaseDatosTicket().add(t);
                             //Se vacía la cesta
-                            tpv.getCarrito().clear();
+                            tpv.getCesta().clear();
 
                             String[] opciones = {"Aceptar"};
 
